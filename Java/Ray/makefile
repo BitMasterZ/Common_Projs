@@ -1,7 +1,7 @@
 # Used for common java files
 
 EXE = clsMain
-OBJECTS = clsMain.java GridMap.java
+OBJECTS = clsMain.java GridMap.java GameCharacter.java
  
 compile:
 	javac $(OBJECTS)

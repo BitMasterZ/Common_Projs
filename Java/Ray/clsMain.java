@@ -13,6 +13,9 @@ public class clsMain extends JFrame implements ActionListener{
 
 	//Instances
 	GridMap MAP = new GridMap(20, 20, 20);
+	Player P1 = new Player(100, 100, this);
+	Player P2 = new Player(400, 100, this,new int[]{KeyEvent.VK_UP, 
+		KeyEvent.VK_DOWN, KeyEvent.VK_LEFT ,KeyEvent.VK_RIGHT});
 	/** 
 	* Constructor for the main class
 	* @param W Width of the GUI window
@@ -62,9 +65,12 @@ public class clsMain extends JFrame implements ActionListener{
 		Graphics dbg = dbImage.getGraphics();
 		
 		//What to draw
-		//dbg.drawString("Linux draws just fine", 200, 200);	
-		MAP.MDraw(dbg);
 
+			//Draw the GridMap		
+		MAP.MDraw(dbg);
+			//Draw the Player(s)
+		P1.MDraw(dbg, Color.GREEN.darker());
+		P2.MDraw(dbg, Color.RED);
 		//Double buffering
 		g.drawImage(dbImage, 0, 0, this);
 		
