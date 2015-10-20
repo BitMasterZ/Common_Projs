@@ -65,4 +65,13 @@ public class GameCharacter{
 		//Draw directional arrow
 		G2.draw(Dir);
 	}
+
+	public double XHead(int Factor){
+		return X + Factor * Math.cos(ANGLE);
+	}
+
+	public double YHead(int Factor){
+		return Y + Factor * Math.sin(ANGLE);
+	}
+
 }

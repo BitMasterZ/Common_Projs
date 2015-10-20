@@ -11,6 +11,7 @@ public class GridMap{
 	private int XBLOCKS, YBLOCKS;
 	// The size of each block
 	private int BSIZE = 50;
+	private Color FILLS[] = {Color.WHITE, Color.BLACK, Color.RED};
 
 	/**
 	* Initialize the GridMap using the number of blocks and block size
@@ -31,7 +32,19 @@ public class GridMap{
 				GRID[i][j] = 0; 
 			}
 		}
+
+		GRID[YBLOCKS/2][XBLOCKS/2] = 1 ;
+
 	}
+
+	public GridMap(int grid[][], int Size_){
+		//Intialize Vars
+		BSIZE = Size_;
+		GRID = grid;
+		XBLOCKS = grid[0].length;
+		YBLOCKS = grid.length;
+	}
+
 
 	/**
 	* Draw a minimap to the screen
@@ -42,8 +55,19 @@ public class GridMap{
 		for(int i = 0; i < GRID.length; i++){
 			for(int j = 0; j < GRID[i].length; j++){
 				//Draw the outline of the block
+				g.setColor(FILLS[GRID[i][j]]);
+				g.fill3DRect(j * BSIZE, i * BSIZE, BSIZE, BSIZE, true);
+				g.setColor(Color.black);
 				g.draw3DRect(j * BSIZE, i * BSIZE, BSIZE, BSIZE, true); 
 			}
 		}		
 	}
+
+	public int getBSize(){return BSIZE;}
+
+	public int getFill(int i, int j){return GRID[i][j];}
+	
+	public int getXBlocks(){return XBLOCKS;}
+	public int getYBlocks(){return YBLOCKS;}
+
 }

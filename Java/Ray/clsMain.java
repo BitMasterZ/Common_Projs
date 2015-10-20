@@ -9,13 +9,28 @@ public class clsMain extends JFrame implements ActionListener{
 	//GUI Variables
 	JPanel pnlTOP = new JPanel(), pnlLEFT = new JPanel(), pnlBOT = new JPanel(), 
 		pnlRIGHT = new JPanel(), pnlCENTER = new JPanel();
+	JLabel lblBOT = new JLabel("");	
 	Timer tmrANIM = new Timer(1, this);
 
 	//Instances
-	GridMap MAP = new GridMap(20, 20, 20);
-	Player P1 = new Player(100, 100, this);
-	Player P2 = new Player(400, 100, this,new int[]{KeyEvent.VK_UP, 
-		KeyEvent.VK_DOWN, KeyEvent.VK_LEFT ,KeyEvent.VK_RIGHT});
+	//GridMap MAP = new GridMap(50, 30, 20);
+	GridMap MAP = new GridMap(new int[][]{
+								{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+								{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+								{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+								{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+								{1, 0, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 1},
+								{1, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1},
+								{1, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1},
+								{1, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1},
+								{1, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1},
+								{1, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 1},
+								{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+								{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+								}, 20);
+	Player P1 = new Player(100, 110, this);
+	//Player P2 = new Player(300, 100, this,new int[]{KeyEvent.VK_UP, 
+	//	KeyEvent.VK_DOWN, KeyEvent.VK_LEFT ,KeyEvent.VK_RIGHT});
 	/** 
 	* Constructor for the main class
 	* @param W Width of the GUI window
@@ -34,6 +49,7 @@ public class clsMain extends JFrame implements ActionListener{
 		this.add(pnlTOP, BorderLayout.NORTH);
 			//BOTTOM
 		this.add(pnlBOT, BorderLayout.SOUTH);
+		pnlBOT.add(lblBOT);
 			//LEFT
 		this.add(pnlLEFT,BorderLayout.WEST);
 			//RIGHT
@@ -70,7 +86,7 @@ public class clsMain extends JFrame implements ActionListener{
 		MAP.MDraw(dbg);
 			//Draw the Player(s)
 		P1.MDraw(dbg, Color.GREEN.darker());
-		P2.MDraw(dbg, Color.RED);
+		//P2.MDraw(dbg, Color.RED);
 		//Double buffering
 		g.drawImage(dbImage, 0, 0, this);
 		

@@ -6,15 +6,15 @@ import java.awt.event.*;
 */
 public class Player extends GameCharacter implements KeyListener, Runnable{
 	//Reference to main class
-	clsMain MAINREF;
+	private clsMain MAINREF;
 	//Enum used to reference key names
-	KeyNames KEY;
+	private KeyNames KEY;
 	//Key flags set/unset in KeyListener functions
-	boolean KEY_FLAGS[] = {false, false, false, false};
+	private boolean KEY_FLAGS[] = {false, false, false, false};
 	//Keys used by this particular player
-	int KEYS[] = {KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D};
+	private int KEYS[] = {KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D};
 	//Thread used for player movement and actions
-	Thread tdRUNNER = new Thread(this); 
+	private Thread tdRUNNER = new Thread(this); 
 
 	/**
 	* Initialize Player(instanceof GameCharacter)
@@ -98,22 +98,35 @@ public class Player extends GameCharacter implements KeyListener, Runnable{
 		while(true){
 			//Move forward
 			if(KEY_FLAGS[KEY.FWD.I]){
-				Move(1);
+				if(!MapCollision(6)){
+					Move(1);	
+				}
+				MAINREF.lblBOT.setText("X :" + XBlockNum(1) +
+					", Y: " + YBlockNum(1));
 			}
 
 			//Move backward
 			if(KEY_FLAGS[KEY.BWD.I]){
-				Move(-1);
+				if(!MapCollision(-6)){
+					Move(-1);	
+				}
+				MAINREF.lblBOT.setText("X :" + XBlockNum(1) +
+					", Y: " + YBlockNum(1));
 			}
 
 			//Turn Left
 			if(KEY_FLAGS[KEY.LEFT.I]){
 				Turn(-1);
+				MAINREF.lblBOT.setText("X :" + XBlockNum(1) +
+					", Y: " + YBlockNum(1));
+
 			}
 
 			//Turn Right
 			if(KEY_FLAGS[KEY.RIGHT.I]){
 				Turn(1);
+				MAINREF.lblBOT.setText("X :" + XBlockNum(1) +
+					", Y: " + YBlockNum(1));
 			}
 
 			//Delay for the thread
@@ -121,6 +134,27 @@ public class Player extends GameCharacter implements KeyListener, Runnable{
 				Thread.sleep(10);
 			}catch(Exception e){}
 		}
+
+	}
+
+	public int XBlockNum(int Off){
+		int BNum = (int)(XHead(Off)) / MAINREF.MAP.getBSize();
+		//System.out.println("X: "+ BNum);
+		BNum = (BNum < 0 || BNum >= MAINREF.MAP.getXBlocks()) ? -1 : BNum; 
+		return BNum;
+	}
+
+	public int YBlockNum(int Off){
+		int BNum = (int)(YHead(Off)) / MAINREF.MAP.getBSize();
+		//System.out.println("Y: "+ BNum);
+		BNum = (BNum < 0 || BNum >= MAINREF.MAP.getYBlocks()) ? -1 : BNum; 
+		return BNum;
+	}
+
+	public boolean MapCollision(int OffDir){
+		int BX = XBlockNum(OffDir), BY = YBlockNum(OffDir);
+		if(BX == -1 || BY == -1){return true;}
+		return (MAINREF.MAP.getFill(BY,BX) != 0);
 	}
 
 }
