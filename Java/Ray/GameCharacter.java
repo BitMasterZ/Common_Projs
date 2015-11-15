@@ -46,15 +46,18 @@ public class GameCharacter{
 	* Draw Character on the minimap 
 	* @param g Graphics of the component to be drawn in
 	*/
-	public void MDraw(Graphics g, Color col){
+	public void MDraw(Graphics g, Color col, int Dx, int Dy, double Scale){
 		//Cast to Graphics2D
 		Graphics2D G2 = (Graphics2D) g;
 
 		//Define Geometric objects
-		Ellipse2D.Double GChar = new Ellipse2D.Double(X, Y, 10, 10);		
-		Line2D.Double Dir = new Line2D.Double((X + 5) + 5 * Math.cos(ANGLE), 
-			(Y + 5) + 5 * Math.sin(ANGLE), (X + 5) + 20 * Math.cos(ANGLE), 
-			(Y + 5) + 20 * Math.sin(ANGLE));
+		Ellipse2D.Double GChar = new Ellipse2D.Double(X * Scale + Dx , 
+		    Y * Scale + Dy, 10 * Scale, 10 * Scale);		
+		Line2D.Double Dir = new Line2D.Double(
+		    ((X + 5) * Scale + Dx) + 5 * Scale * Math.cos(ANGLE), 
+			((Y + 5) * Scale + Dy) + 5 * Scale * Math.sin(ANGLE), 
+			((X + 5) * Scale + Dx) + 20 * Scale * Math.cos(ANGLE), 
+			((Y + 5) * Scale + Dy) + 20 * Scale * Math.sin(ANGLE));
 
 		//Draw Player dot
 		G2.setColor(col);
@@ -66,12 +69,21 @@ public class GameCharacter{
 		G2.draw(Dir);
 	}
 
-	public double XHead(int Factor){
+	public double getAngle(){return ANGLE;}
+	public double XHead(double Factor){
 		return X + Factor * Math.cos(ANGLE);
 	}
 
-	public double YHead(int Factor){
+	public double XHead(double Factor, double Ang){
+		return X + Factor * Math.cos(Ang);
+	}
+
+	public double YHead(double Factor){
 		return Y + Factor * Math.sin(ANGLE);
+	}
+
+	public double YHead(double Factor, double Ang){
+		return Y + Factor * Math.sin(Ang);
 	}
 
 }

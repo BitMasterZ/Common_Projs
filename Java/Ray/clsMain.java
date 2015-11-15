@@ -27,8 +27,9 @@ public class clsMain extends JFrame implements ActionListener{
 								{1, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 1},
 								{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 								{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-								}, 20);
+								}, 64);
 	Player P1 = new Player(100, 110, this);
+	RayCaster CASTER = new RayCaster(P1, MAP);
 	//Player P2 = new Player(300, 100, this,new int[]{KeyEvent.VK_UP, 
 	//	KeyEvent.VK_DOWN, KeyEvent.VK_LEFT ,KeyEvent.VK_RIGHT});
 	/** 
@@ -83,9 +84,10 @@ public class clsMain extends JFrame implements ActionListener{
 		//What to draw
 
 			//Draw the GridMap		
-		MAP.MDraw(dbg);
+		MAP.MDraw(dbg, 320 , 10 ,0.5);
 			//Draw the Player(s)
-		P1.MDraw(dbg, Color.GREEN.darker());
+		P1.MDraw(dbg, Color.GREEN.darker(), 320, 10, 0.5);
+		CASTER.Draw(dbg);
 		//P2.MDraw(dbg, Color.RED);
 		//Double buffering
 		g.drawImage(dbImage, 0, 0, this);

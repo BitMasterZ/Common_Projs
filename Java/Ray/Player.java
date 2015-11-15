@@ -137,22 +137,43 @@ public class Player extends GameCharacter implements KeyListener, Runnable{
 
 	}
 
-	public int XBlockNum(int Off){
+	public int XBlockNum(double Off){
 		int BNum = (int)(XHead(Off)) / MAINREF.MAP.getBSize();
 		//System.out.println("X: "+ BNum);
 		BNum = (BNum < 0 || BNum >= MAINREF.MAP.getXBlocks()) ? -1 : BNum; 
 		return BNum;
 	}
 
-	public int YBlockNum(int Off){
+	public int XBlockNum(double Off, double Ang){
+		int BNum = (int)(XHead(Off, Ang)) / MAINREF.MAP.getBSize();
+		//System.out.println("X: "+ BNum);
+		BNum = (BNum < 0 || BNum >= MAINREF.MAP.getXBlocks()) ? -1 : BNum; 
+		return BNum;
+	}
+
+	public int YBlockNum(double Off){
 		int BNum = (int)(YHead(Off)) / MAINREF.MAP.getBSize();
 		//System.out.println("Y: "+ BNum);
 		BNum = (BNum < 0 || BNum >= MAINREF.MAP.getYBlocks()) ? -1 : BNum; 
 		return BNum;
 	}
 
-	public boolean MapCollision(int OffDir){
+
+	public int YBlockNum(double Off, double Ang){
+		int BNum = (int)(YHead(Off, Ang)) / MAINREF.MAP.getBSize();
+		//System.out.println("Y: "+ BNum);
+		BNum = (BNum < 0 || BNum >= MAINREF.MAP.getYBlocks()) ? -1 : BNum; 
+		return BNum;
+	}
+
+	public boolean MapCollision(double OffDir){
 		int BX = XBlockNum(OffDir), BY = YBlockNum(OffDir);
+		if(BX == -1 || BY == -1){return true;}
+		return (MAINREF.MAP.getFill(BY,BX) != 0);
+	}
+
+	public boolean MapCollision(double OffDir, double Ang){
+		int BX = XBlockNum(OffDir, Ang), BY = YBlockNum(OffDir, Ang);
 		if(BX == -1 || BY == -1){return true;}
 		return (MAINREF.MAP.getFill(BY,BX) != 0);
 	}

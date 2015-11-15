@@ -50,15 +50,19 @@ public class GridMap{
 	* Draw a minimap to the screen
 	* @param g Graphics of the component to be drawn in
 	*/
-	public void MDraw(Graphics g){
+	public void MDraw(Graphics g, int Dx, int Dy, double Scale){
 		//For each block
 		for(int i = 0; i < GRID.length; i++){
 			for(int j = 0; j < GRID[i].length; j++){
 				//Draw the outline of the block
 				g.setColor(FILLS[GRID[i][j]]);
-				g.fill3DRect(j * BSIZE, i * BSIZE, BSIZE, BSIZE, true);
+				g.fill3DRect((int)(j * BSIZE * Scale + Dx), 
+				    (int) (i * BSIZE * Scale + Dy), (int)(BSIZE * Scale), 
+				    (int)(BSIZE * Scale), true);
 				g.setColor(Color.black);
-				g.draw3DRect(j * BSIZE, i * BSIZE, BSIZE, BSIZE, true); 
+				g.draw3DRect((int)(j * BSIZE * Scale + Dx), 
+				    (int) (i * BSIZE * Scale + Dy), (int)(BSIZE * Scale), 
+				    (int)(BSIZE * Scale), true);
 			}
 		}		
 	}
