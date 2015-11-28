@@ -67,11 +67,14 @@ public class GridMap{
 		}		
 	}
 
+	//GETTER FUNCTIONS
 	public int getBSize(){return BSIZE;}
-
-	public int getFill(int i, int j){return GRID[i][j];}
-	
+	public int getFill(int i, int j){return GRID[i][j];}	
 	public int getXBlocks(){return XBLOCKS;}
 	public int getYBlocks(){return YBLOCKS;}
+
+	//SETTER FUNCTIONS
+	public void setFill(int i, int j, int fill){GRID[i][j] = fill;}
+
 
 }
