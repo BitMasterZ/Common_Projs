@@ -1,4 +1,5 @@
 import java.awt.*;
+import javax.swing.JFrame;
 
 public class GameCharacter{
 	protected int X, Y;
@@ -6,18 +7,21 @@ public class GameCharacter{
 	protected double GX = 1, GY = 1;
 	protected int MSPEED = 1;
 	protected boolean CANMOVE = true;
+	protected clsMain RUNNER_REF;
 
-	public GameCharacter(int X_, int Y_, double W_, double H_){
+	public GameCharacter(int X_, int Y_, double W_, double H_, clsMain Ref){
 		X = X_; Y = Y_;
 		W = W_; H = H_; 
+		RUNNER_REF = Ref;
 	}
 
 	public GameCharacter(int X_, int Y_, double W_, double H_, double GX_, 
-		double GY_){
+		double GY_, clsMain Ref){
 		
 		X = X_; Y = Y_;
 		W = W_; H = H_; 
 		GX = GX_; GY = GY_;
+		RUNNER_REF = Ref;
 	}
 
 	public void moveX(int dir){
@@ -28,7 +32,8 @@ public class GameCharacter{
 		Y += MSPEED * dir;
 	}
 
-	public void mDraw(Graphics g, int dx , int dy, double scale, Color col){
+	public void mDraw(Graphics g, double scale, Color col){
+		int dx = RUNNER_REF.MAP.DX, dy = RUNNER_REF.MAP.DY;
 		g.setColor(col);
 		g.fillOval((int)(X * scale + dx), (int)(Y * scale + dy), 
 			(int)(W * GX * scale), (int)(H * GY * scale));
@@ -38,7 +43,30 @@ public class GameCharacter{
 
 	}
 
+	public boolean mapCollision(int xOff, int yOff){
+		int currX =RUNNER_REF.MAP.getXBlockNum(X),
+			currY =RUNNER_REF.MAP.getYBlockNum(Y);
 
+		if(xOff < 0){
+			int left = RUNNER_REF.MAP.getXBlockNum(X  + xOff);
+			return (RUNNER_REF.MAP.getFill(currY, left) != 0);
+		}
+		else if(xOff > 0){
+			int right = RUNNER_REF.MAP.getXBlockNum(X + (int)W + xOff);
+			return (RUNNER_REF.MAP.getFill(currY, right) != 0);
+		}
+		if(yOff < 0){
+			int top = RUNNER_REF.MAP.getYBlockNum(Y + yOff);
+			return (RUNNER_REF.MAP.getFill(top, currX) != 0);
+		}
+		else if(yOff > 0){
+			int bot = RUNNER_REF.MAP.getYBlockNum(Y + (int)H + yOff);
+			return (RUNNER_REF.MAP.getFill(bot, currX) != 0);
+		}
+
+		return false;
+
+	}
 
 	//GETTER FUNCTIONS
 	public int getXPos(){return X;}

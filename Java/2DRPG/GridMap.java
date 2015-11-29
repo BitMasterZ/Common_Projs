@@ -12,6 +12,8 @@ public class GridMap{
 	// The size of each block
 	private int BSIZE = 50;
 	private Color FILLS[] = {Color.WHITE, Color.BLACK, Color.RED};
+	// Map Draw Displacement
+	int DX = 0, DY = 0;
 
 	/**
 	* Initialize the GridMap using the number of blocks and block size
@@ -50,18 +52,18 @@ public class GridMap{
 	* Draw a minimap to the screen
 	* @param g Graphics of the component to be drawn in
 	*/
-	public void MDraw(Graphics g, int Dx, int Dy, double Scale){
+	public void MDraw(Graphics g, double Scale){
 		//For each block
 		for(int i = 0; i < GRID.length; i++){
 			for(int j = 0; j < GRID[i].length; j++){
 				//Draw the outline of the block
 				g.setColor(FILLS[GRID[i][j]]);
-				g.fill3DRect((int)(j * BSIZE * Scale + Dx), 
-				    (int) (i * BSIZE * Scale + Dy), (int)(BSIZE * Scale), 
+				g.fill3DRect((int)(j * BSIZE * Scale + DX), 
+				    (int) (i * BSIZE * Scale + DY), (int)(BSIZE * Scale), 
 				    (int)(BSIZE * Scale), true);
 				g.setColor(Color.black);
-				g.draw3DRect((int)(j * BSIZE * Scale + Dx), 
-				    (int) (i * BSIZE * Scale + Dy), (int)(BSIZE * Scale), 
+				g.draw3DRect((int)(j * BSIZE * Scale + DX), 
+				    (int) (i * BSIZE * Scale + DY), (int)(BSIZE * Scale), 
 				    (int)(BSIZE * Scale), true);
 			}
 		}		
@@ -72,6 +74,8 @@ public class GridMap{
 	public int getFill(int i, int j){return GRID[i][j];}	
 	public int getXBlocks(){return XBLOCKS;}
 	public int getYBlocks(){return YBLOCKS;}
+	public int getXBlockNum(int x){return x / BSIZE;}
+	public int getYBlockNum(int y){return y / BSIZE;}
 
 	//SETTER FUNCTIONS
 	public void setFill(int i, int j, int fill){GRID[i][j] = fill;}

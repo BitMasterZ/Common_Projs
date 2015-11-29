@@ -25,7 +25,7 @@ public class clsMain extends JFrame implements ActionListener{
 
 	public clsMain(int W ,int H){
 		//Initial Setup
-		super("Raycaster");
+		super("2D RPG");
 		setBounds(this.getToolkit().getScreenSize().width / 2 - W / 2, 
 			this.getToolkit().getScreenSize().height / 2 - H / 2, W, H);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,6 +47,7 @@ public class clsMain extends JFrame implements ActionListener{
 		setVisible(true);
 		tmrANIM.start();
 		
+
 	}
 
 	public static void main (String args[]){
@@ -70,12 +71,14 @@ public class clsMain extends JFrame implements ActionListener{
 		//What to draw
 
 			//Draw the GridMap		
-		MAP.MDraw(dbg, 10 , 10 , 1);
-		P1.mDraw(dbg, 10, 10, 1, Color.GREEN);
+		MAP.MDraw(dbg, 1);
+
+		P1.mDraw(dbg, 1, Color.GREEN);
 
 		//Double buffering
 		g.drawImage(dbImage, 0, 0, this);
 		
 	}
+
 
 }
