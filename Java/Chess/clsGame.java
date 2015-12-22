@@ -75,6 +75,7 @@ public class clsGame extends JFrame implements ActionListener{
 		setVisible(true);
 		
 		instGAME = new ChessGame(pnlCENTER);
+		pnlCENTER.addMouseListener(instGAME);
 		
 	}
 
