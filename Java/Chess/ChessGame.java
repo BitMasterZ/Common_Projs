@@ -8,12 +8,15 @@ import java.util.HashMap;
 public class ChessGame implements MouseListener{
 	//Timer tmrANIM = new Timer(1, this);
 	JPanel pnlREF;
-	int GRID[][] = new int[8][8];
+	int[][] GRID = new int[8][8], CANMOVE = new int[8][8];
 	int SQUARE_SIZE = 60;
+	int SELECTED[] = new int[2];
+	ChessRules RULE_SET;
 	HashMap <String, Image> imgs = new HashMap <String, Image>();
-
+	boolean WHITE_CHECK = false, BLACK_CHECK = false;
 	public ChessGame(JPanel pnl){
 		pnlREF = pnl;
+		resetCanMove();
 		resetBoard();
 		try{
 			imgs.put("WP", ImageIO.read(new URL("https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png")));
@@ -31,22 +34,36 @@ public class ChessGame implements MouseListener{
 
 		}catch(Exception e){}
 
+		SELECTED[0] = -1;
+		SELECTED[1] = -1;
+		RULE_SET = new ChessRules(this);
 		update(pnlREF.getGraphics());
 		//tmrANIM.start();
 
-
 	}
 
+	public void resetCanMove(){
+		CANMOVE = new int[][]{
+			{0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0}
+		};
+	}
 	public void resetBoard(){
 		GRID = new int[][]{
-			{110, 120, 130, 141, 151, 131, 121, 111},
+			{110, 120, 130, 140, 150, 131, 121, 111},
 			{101, 102, 103, 104, 105, 106, 107, 108},
 			{0, 0, 0, 0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0},
 			{1, 2, 3, 4, 5, 6, 7, 8},
-			{10, 20, 30, 41, 51, 31, 21, 11}
+			{10, 20, 30, 40, 50, 31, 21, 11}
 		};
 	}
 
@@ -98,6 +115,9 @@ public class ChessGame implements MouseListener{
 		for(int i = 0;i < GRID.length; i++){
 			for(int j = 0;j < GRID[i].length; j++){
 				blockCol = (blnAlt) ? Color.gray.darker() : Color.white;
+				blockCol = (SELECTED[0] == j && SELECTED[1] == i) ? Color.yellow : blockCol;
+				blockCol = (CANMOVE[i][j] == 1) ? ((GRID[i][j] == 0) ? Color.cyan : Color.red): blockCol;
+				//blockCol = (BLACK_CHECK && getType(GRID[i][j]) == 'K' && getColor(GRID[i][j]) == 'B') ? Color.magenta : blockCol;
 				blnAlt = !blnAlt;
 
 				g.setColor(blockCol);
@@ -124,16 +144,53 @@ public class ChessGame implements MouseListener{
 		}
 	}
 
+	public void pieceMove(int x, int y, int dx, int dy){
+		//System.out.println(x + ", " + y);
+		GRID[dy][dx] = GRID[y][x];
+		GRID[y][x] = 0;		
+		resetCanMove();
+		SELECTED[0] = -1;
+		SELECTED[1] = -1;
+		BLACK_CHECK = RULE_SET.isChecked('B');
+		if(BLACK_CHECK){System.out.println("Black checked");}
+		WHITE_CHECK = RULE_SET.isChecked('W');
+		update(pnlREF.getGraphics());
+	}
 
 
 	public void mousePressed(MouseEvent event){
+		
 		update(pnlREF.getGraphics());
 		int x = (event.getX() - 10) / SQUARE_SIZE, y = (event.getY() - 10) / SQUARE_SIZE;
 		if(x < 0 || x > 7){x = -1;}
 		if(y < 0 || y > 7){y = -1;}
-		//System.out.println(x + ", " + y);
-		if(x == -1 || y == -1){return;}
+
+		if(x == -1 || y == -1){
+			SELECTED[0] = -1;
+			SELECTED[1] = -1;
+			return;
+		}
 		
+		if(CANMOVE[y][x] == 1){
+			pieceMove(SELECTED[0], SELECTED[1], x, y);
+			resetCanMove();
+			return;
+		}else{
+			SELECTED[0] = x;
+			SELECTED[1] = y;
+			resetCanMove();	
+		}
+		
+		//System.out.println(x + ", " + y);
+		
+		if(GRID[y][x] == 0){
+			SELECTED[0] = -1;
+			SELECTED[1] = -1;
+			resetCanMove();
+		}else{
+			System.out.println(RULE_SET.calcMoves(x, y));	
+		}
+		update(pnlREF.getGraphics());
 	}
 
 	public void mouseReleased(MouseEvent event){
