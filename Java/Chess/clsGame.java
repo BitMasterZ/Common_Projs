@@ -1,7 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-/** The main class that uses all of the provided classes with a GUI
+/** 
+* The main class that uses all of the provided classes with a GUI
 * @author Shobhit
 * @version 1.0
 */
@@ -57,9 +58,10 @@ public class clsGame extends JFrame implements ActionListener{
 
 			//RIGHT
 		this.add(pnlRIGHT,BorderLayout.EAST);
+	
 			//CENTER
 		this.add(pnlCENTER,BorderLayout.CENTER);
-	
+			//MENU BAR
 		this.setJMenuBar(MAIN_MENU);
 		MAIN_MENU.add(mnuGAME);
 		mnuGAME.add(mnuGAME_NEW);
@@ -71,9 +73,9 @@ public class clsGame extends JFrame implements ActionListener{
 		mnuGAME.add(mnuGAME_EXIT);
 		mnuGAME_EXIT.addActionListener(this);
 
-
 		setVisible(true);
 		
+		//Start game
 		instGAME = new ChessGame(pnlCENTER);
 		pnlCENTER.addMouseListener(instGAME);
 		
@@ -86,16 +88,20 @@ public class clsGame extends JFrame implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent event){
-		
+		//Menu options
+			//NEW GAME
 		if(event.getSource() == mnuGAME_NEW){
 			JOptionPane.showMessageDialog(null, "New game");
 		}
+			//SAVE CURRENT GAME
 		else if(event.getSource() == mnuGAME_SAVE){
 			JOptionPane.showMessageDialog(null, "Save game");
 		}
+			//LOAD SAVED GAME
 		else if(event.getSource() == mnuGAME_LOAD){
 			JOptionPane.showMessageDialog(null, "Load game");
 		}
+			//EXIT APPLICATION
 		else if(event.getSource() == mnuGAME_EXIT){
 			System.exit(0);
 		}
