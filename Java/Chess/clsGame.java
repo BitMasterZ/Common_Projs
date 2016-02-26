@@ -16,8 +16,9 @@ public class clsGame extends JFrame implements ActionListener{
 	JMenuBar MAIN_MENU = new JMenuBar();
 	JMenu mnuGAME = new JMenu("Game");
 	JMenuItem mnuGAME_NEW = new JMenuItem("New Game"), mnuGAME_SAVE = new JMenuItem("Save Game"),
-		mnuGAME_LOAD = new JMenuItem("Load Game"), mnuGAME_EXIT = new JMenuItem("Exit Game");
-
+		mnuGAME_LOAD = new JMenuItem("Load Game"), mnuGAME_EXIT = new JMenuItem("Exit");
+		//List of all moves made by player
+	JList<String> MOVE_LIST = new JList<String>();
 
 	ChessGame instGAME;
 	/** 
@@ -55,6 +56,8 @@ public class clsGame extends JFrame implements ActionListener{
 		pnlLEFT.add(pnlLEFT_TOP, BorderLayout.NORTH);
 		pnlLEFT_TOP.add(lblLEFT_TITLE);
 		lblLEFT_TITLE.setFont(new Font("Century Gothic", 20, 20));
+		pnlLEFT.add(MOVE_LIST);
+		MOVE_LIST.setFont(new Font("URW Chancery L", 25, 25));
 
 			//RIGHT
 		this.add(pnlRIGHT,BorderLayout.EAST);
@@ -76,14 +79,14 @@ public class clsGame extends JFrame implements ActionListener{
 		setVisible(true);
 		
 		//Start game
-		instGAME = new ChessGame(pnlCENTER);
+		instGAME = new ChessGame(pnlCENTER, lblSTATS, MOVE_LIST);
 		pnlCENTER.addMouseListener(instGAME);
 		
 	}
 
 	public static void main (String args[]){
 		//Obj instance for clsGame
-		clsGame ABC = new clsGame(700, 700);
+		clsGame ABC = new clsGame(787, 720);
 
 	}
 
@@ -91,11 +94,14 @@ public class clsGame extends JFrame implements ActionListener{
 		//Menu options
 			//NEW GAME
 		if(event.getSource() == mnuGAME_NEW){
-			JOptionPane.showMessageDialog(null, "New game");
+			//JOptionPane.showMessageDialog(null, "New game");
+			instGAME.resetGame();
 		}
 			//SAVE CURRENT GAME
 		else if(event.getSource() == mnuGAME_SAVE){
+			String FName = JOptionPane.showInputDialog(null, "Enter filename", "Save Game", JOptionPane.QUESTION_MESSAGE);
 			JOptionPane.showMessageDialog(null, "Save game");
+		
 		}
 			//LOAD SAVED GAME
 		else if(event.getSource() == mnuGAME_LOAD){

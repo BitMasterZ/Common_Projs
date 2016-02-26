@@ -7,7 +7,7 @@ JAR = Chess.jar
 EXE = clsGame
 
 #names of java files to be compiled
-OBJECTS = clsGame.java ChessGame.java
+OBJECTS = clsGame.java ChessGame.java ChessRules.java
  
 compile:
 	javac $(OBJECTS)

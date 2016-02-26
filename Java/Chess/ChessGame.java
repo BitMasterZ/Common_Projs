@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.net.*;
 import java.util.HashMap;
+import java.util.Vector;
 /** 
 * The main class is used to enclose the entire chess game into one class
 * @author Shobhit
@@ -13,7 +14,8 @@ public class ChessGame implements MouseListener{
 	//GUI Variables
 	//Timer tmrANIM = new Timer(1, this);
 	JPanel pnlREF;
-
+	JLabel lblREF;
+	JList<String> lstREF;
 	//Chess variables
 		//Grid contains information about chesspieces
 	int[][] GRID = new int[8][8];
@@ -21,23 +23,29 @@ public class ChessGame implements MouseListener{
 	int[][] CANMOVE = new int[8][8];
 		//Square size is used when drawing the board on screen
 	int SQUARE_SIZE = 60;
-		// Find which piece is selected using coordinates for the location
+		//Find which piece is selected using coordinates for the location
 	int SELECTED[] = new int[2];
 		//A set of chess rules used to decide where a selected piece can move
 	ChessRules RULE_SET;
 		//Used to translate chesspiece name to image urls
 	HashMap <String, Image> imgs = new HashMap <String, Image>();
-		//Check variables
-	boolean WHITE_CHECK = false, BLACK_CHECK = false;
 	
-
+	Vector <String> MOVE_LIST = new Vector<String>();
+	String[] ALPHA = {"a", "b", "c", "d", "e", "f", "g", "h"};
+	char TURN = 'W';	
+	boolean GAME_OVER = false;
+	int xOff = 50, yOff = 50;
 	/** 
 	* Constructor used to create an instance of a chess game
 	* @param pnl Reference to the JPanel used in clsGame
 	*/
-	public ChessGame(JPanel pnl){
+	public ChessGame(JPanel pnl, JLabel lbl, JList<String> moves){
 		//Assign reference
 		pnlREF = pnl;
+		lblREF = lbl;
+		lstREF = moves;
+
+		lblREF.setText("WHITE PLAYS");
 
 		//Inititalize game conditions
 		resetCanMove();
@@ -132,7 +140,7 @@ public class ChessGame implements MouseListener{
 	public char getType(int ID){
 		//Remove color hash
 		if(ID >= 100){ID -= 100;}
-		
+		if(ID == 0){return '-';}		
 		switch(ID / 10){
 			case 0:
 				return 'P';
@@ -177,7 +185,8 @@ public class ChessGame implements MouseListener{
 				blockCol = (SELECTED[0] == j && SELECTED[1] == i) ? Color.yellow : blockCol;
 				//If a piece can move to that certain block
 				blockCol = (CANMOVE[i][j] == 1) ? ((GRID[i][j] == 0) ? Color.cyan : Color.red): blockCol;
-				//blockCol = (BLACK_CHECK && getType(GRID[i][j]) == 'K' && getColor(GRID[i][j]) == 'B') ? Color.magenta : blockCol;
+				blockCol = (RULE_SET.BLACK_CHECK && getType(GRID[i][j]) == 'K' && getColor(GRID[i][j]) == 'B') ? Color.magenta.darker() : blockCol;
+				blockCol = (RULE_SET.WHITE_CHECK && getType(GRID[i][j]) == 'K' && getColor(GRID[i][j]) == 'W') ? Color.magenta.darker() : blockCol;
 				//Alternate
 				blnAlt = !blnAlt;
 
@@ -204,6 +213,7 @@ public class ChessGame implements MouseListener{
 		}
 	}
 
+
 	/** 
 	* Simulate a 'move' in a chess game
 	* @param x Current x position
@@ -213,20 +223,43 @@ public class ChessGame implements MouseListener{
 	*/
 	public void pieceMove(int x, int y, int dx, int dy){
 		//System.out.println(x + ", " + y);
+		String Sp = "        ";
 		//Move piece
+		int prev = GRID[dy][dx];
+
+		MOVE_LIST.addElement(ALPHA[x] + (8 - y) + Sp + ALPHA[dx] + (8 - dy) 
+			+ Sp + getColor(GRID[dy][dx]) + getType(GRID[dy][dx]));
+		lstREF.setListData(MOVE_LIST);
+
 		GRID[dy][dx] = GRID[y][x];
 		GRID[y][x] = 0;		
 		
+		RULE_SET.isChecked();
+
 		//Reset movement vars
 		resetCanMove();
 		SELECTED[0] = -1;
 		SELECTED[1] = -1;
-
-		//Check for check
-		BLACK_CHECK = RULE_SET.isChecked('B');
-		if(BLACK_CHECK){System.out.println("Black checked");}
-		WHITE_CHECK = RULE_SET.isChecked('W');
 		
+		TURN = (TURN == 'W') ? 'B' : 'W';
+		lblREF.setText((TURN == 'W') ? "WHITE PLAYS": "BLACK PLAYS");
+		if(getType(prev) == 'K'){
+			lblREF.setText((getColor(prev) == 'W') ? "BLACK WINS" : "WHITE WINS");
+			GAME_OVER = true;
+		}
+
+		//Redraw board
+		update(pnlREF.getGraphics());
+	}
+
+	public void resetGame(){
+		resetBoard();
+		RULE_SET.isChecked();
+		resetCanMove();
+		MOVE_LIST.clear();
+		lstREF.setListData(MOVE_LIST);
+		TURN = 'W';
+		lblREF.setText((TURN == 'W') ? "WHITE PLAYS": "BLACK PLAYS");
 		//Redraw board
 		update(pnlREF.getGraphics());
 	}
@@ -236,11 +269,12 @@ public class ChessGame implements MouseListener{
 	* @param event Mouse event
 	*/
 	public void mousePressed(MouseEvent event){
+		if(GAME_OVER){return;}
 		//Redraw board and pieces
 		update(pnlREF.getGraphics());
 
 		//Parse x and y coordinate of click
-		int x = (event.getX() - 10) / SQUARE_SIZE, y = (event.getY() - 10) / SQUARE_SIZE;
+		int x = (event.getX() - xOff) / SQUARE_SIZE, y = (event.getY() - yOff) / SQUARE_SIZE;
 		//If not within board assign -1
 		if(x < 0 || x > 7){x = -1;}
 		if(y < 0 || y > 7){y = -1;}
@@ -262,6 +296,7 @@ public class ChessGame implements MouseListener{
 			//Exit
 			return;
 		}else{// UNMOVABLE SQUARE
+			if(getColor(GRID[y][x]) != TURN){return;}
 			//Select square
 			SELECTED[0] = x;
 			SELECTED[1] = y;
@@ -280,7 +315,7 @@ public class ChessGame implements MouseListener{
 			resetCanMove();
 		}else{// CHESS PIECE SELECTED
 			//Calcuate moves
-			System.out.println(RULE_SET.calcMoves(x, y));	
+			RULE_SET.calcMoves(x, y);	
 		}
 
 		//ReDraw Board
@@ -314,9 +349,25 @@ public class ChessGame implements MouseListener{
 		
 		//What to draw
 		//dbg.drawString("Linux draws just fine", 200, 200);	
-		drawBoard(dbg, 10, 10);
+		drawBoard(dbg, xOff, yOff);
+		
+		
+		
+		int op = 60, del = 5;
+		for(int i = 0; i < 50; i++){
+			if(i % del == 0){op += 10;}
+			dbg.setColor(new Color(0,0,0, 255 - op));
+			dbg.drawLine(xOff - i, yOff - i , xOff - i, yOff + SQUARE_SIZE * 8 + i );
+			dbg.drawLine(xOff - i, yOff - i , xOff + SQUARE_SIZE * 8 + i, yOff - i );
+			dbg.drawLine(xOff + SQUARE_SIZE * 8 + i, yOff - i , xOff + SQUARE_SIZE * 8 + i, yOff + SQUARE_SIZE * 8 + i );
+			dbg.drawLine(xOff - i, yOff + SQUARE_SIZE * 8 + i , xOff + SQUARE_SIZE * 8 + i, yOff + SQUARE_SIZE * 8 + i );
+		}
 
-
+		for(int i = 0; i < 8; i++){
+			dbg.setColor(Color.white);
+			dbg.drawString(ALPHA[i], SQUARE_SIZE * i + 75, SQUARE_SIZE * 8 + yOff + 30);
+			dbg.drawString((8 - i) + " ", xOff - 30, SQUARE_SIZE * i + 80);
+		}
 		//Double buffering
 		g.drawImage(dbImage, 0, 0, pnlREF);
 		
