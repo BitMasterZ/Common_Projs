@@ -1,10 +1,14 @@
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.event.*;
-import java.net.*;
+import javax.imageio.ImageIO;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileOutputStream;
 /** 
 * The main class is used to enclose the entire chess game into one class
 * @author Shobhit
@@ -16,6 +20,8 @@ public class ChessGame implements MouseListener{
 	JPanel pnlREF;
 	JLabel lblREF;
 	JList<String> lstREF;
+	
+	Color BLACK = Color.black, WHITE = Color.white;
 	//Chess variables
 		//Grid contains information about chesspieces
 	int[][] GRID = new int[8][8];
@@ -29,12 +35,17 @@ public class ChessGame implements MouseListener{
 	ChessRules RULE_SET;
 		//Used to translate chesspiece name to image urls
 	HashMap <String, Image> imgs = new HashMap <String, Image>();
-	
+		//Move List for chess game
 	Vector <String> MOVE_LIST = new Vector<String>();
+		//Alphabet coordinate for the chess board
 	String[] ALPHA = {"a", "b", "c", "d", "e", "f", "g", "h"};
+		//Used to store the turn alphabet
 	char TURN = 'W';	
+		//Check If white or black has won
 	boolean GAME_OVER = false;
+		//Offset for drawing board on screen
 	int xOff = 50, yOff = 50;
+
 	/** 
 	* Constructor used to create an instance of a chess game
 	* @param pnl Reference to the JPanel used in clsGame
@@ -45,6 +56,7 @@ public class ChessGame implements MouseListener{
 		lblREF = lbl;
 		lstREF = moves;
 
+		//Display
 		lblREF.setText("WHITE PLAYS");
 
 		//Inititalize game conditions
@@ -83,6 +95,7 @@ public class ChessGame implements MouseListener{
 	* Function used to reset the canmove array when a new piece is selected
 	*/
 	public void resetCanMove(){
+		//Reset the canmove array to 0
 		CANMOVE = new int[][]{
 			{0, 0, 0, 0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0},
@@ -99,6 +112,7 @@ public class ChessGame implements MouseListener{
 	* Function used to reset the board to its original state
 	*/
 	public void resetBoard(){
+		//Reset board 
 		GRID = new int[][]{
 			{110, 120, 130, 140, 150, 131, 121, 111},
 			{101, 102, 103, 104, 105, 106, 107, 108},
@@ -118,7 +132,9 @@ public class ChessGame implements MouseListener{
 	* @return Chess piece image
 	*/
 	public Image getImage(char col, char type){
+		//Piece name
 		String piece = col + "" + type ;
+		//Get image name 
 		return imgs.get(piece);
 	}
 
@@ -140,6 +156,7 @@ public class ChessGame implements MouseListener{
 	public char getType(int ID){
 		//Remove color hash
 		if(ID >= 100){ID -= 100;}
+
 		if(ID == 0){return '-';}		
 		switch(ID / 10){
 			case 0:
@@ -165,6 +182,19 @@ public class ChessGame implements MouseListener{
 	}
 
 	/**
+	* Function used to change the color scheme of the board tiles
+	* @param w Color array that will be used to replace white
+	* @param b Color array that will be used to replace black
+	*/
+	public void colorScheme(Color w, Color b){
+		//Change color scheme
+		WHITE = w;
+		BLACK = b;
+
+		//Redraw board
+		update(pnlREF.getGraphics());
+	}
+	/**
 	* Fucntion used to draw chessboard on the screen
 	* @param g Graphics component where to draw the board
 	* @param xOff Offset space from left of the panel
@@ -180,7 +210,7 @@ public class ChessGame implements MouseListener{
 			for(int j = 0;j < GRID[i].length; j++){
 			//Pick color of square
 				//Alternate color of square
-				blockCol = (blnAlt) ? Color.gray.darker() : Color.white;
+				blockCol = (blnAlt) ? new Color(BLACK.getRed() , BLACK.getGreen(), BLACK.getBlue(), BLACK.getAlpha()) : new Color(WHITE.getRed(), WHITE.getGreen(), WHITE.getBlue());;
 				//If piece is selected
 				blockCol = (SELECTED[0] == j && SELECTED[1] == i) ? Color.yellow : blockCol;
 				//If a piece can move to that certain block
@@ -223,12 +253,12 @@ public class ChessGame implements MouseListener{
 	*/
 	public void pieceMove(int x, int y, int dx, int dy){
 		//System.out.println(x + ", " + y);
-		String Sp = "        ";
+		String Sp = "       ";
 		//Move piece
 		int prev = GRID[dy][dx];
 
 		MOVE_LIST.addElement(ALPHA[x] + (8 - y) + Sp + ALPHA[dx] + (8 - dy) 
-			+ Sp + getColor(GRID[dy][dx]) + getType(GRID[dy][dx]));
+			+ Sp + getColor(GRID[dy][dx]) + getType(GRID[dy][dx]) + GRID[dy][dx] % 10);
 		lstREF.setListData(MOVE_LIST);
 
 		GRID[dy][dx] = GRID[y][x];
@@ -252,16 +282,185 @@ public class ChessGame implements MouseListener{
 		update(pnlREF.getGraphics());
 	}
 
+	/**
+	* Function used the reset the game to its initial state
+	*/
 	public void resetGame(){
+
+		GAME_OVER = false;
+		//Reset the board
 		resetBoard();
+		//Check for check
 		RULE_SET.isChecked();
+		//Reset can move array
 		resetCanMove();
+		//Clear move list
 		MOVE_LIST.clear();
 		lstREF.setListData(MOVE_LIST);
+
+		//Reset turn to white
 		TURN = 'W';
 		lblREF.setText((TURN == 'W') ? "WHITE PLAYS": "BLACK PLAYS");
+		
 		//Redraw board
 		update(pnlREF.getGraphics());
+	}
+
+	/**
+	* Function used to reverse a particular move (recorded in log form)
+	* @param log Log entry for the move we need to reverse
+	*/
+	public void reverseMove(String log){
+		//Undo game over if a particular player has already won
+		GAME_OVER = false;
+		//Seperator used for splitting
+		String Sp = "       ";
+		//Parse the log string
+		String[] parts = log.split(Sp);
+		
+		//Coordinate variables
+			//From
+		int x = (int)(parts[0].charAt(0)) - (int)('a');
+		int y = 8 - Integer.parseInt(parts[0].charAt(1) + "");
+			//To
+		int dx = (int)(parts[1].charAt(0)) - (int)('a');
+		int dy = 8 - Integer.parseInt(parts[1].charAt(1) + "");
+		
+		//System.out.println(x + ", " + y);
+
+		//Move the piece back to its place before the move
+		GRID[y][x] = GRID[dy][dx];
+
+		//Used to reinstante the chesspiece(If there was one) killed by the moving piece
+		int prev = Integer.parseInt(parts[2].charAt(2) + "");
+		switch(parts[2].charAt(1)){
+			case 'R':
+				prev += 10;
+				break;
+			case 'N':
+				prev += 20;
+				break;
+			case 'B':
+				prev += 30;
+				break;
+			case 'Q':
+				prev += 40;
+				break;
+			case 'K':
+				prev += 50;
+				break;				
+		}
+		if(parts[2].charAt(0) == 'B'){prev += 100;}
+
+		//Reinstate the piece
+		GRID[dy][dx] = prev;
+
+		//Change the turn
+		TURN = (TURN == 'W') ? 'B' : 'W';
+		lblREF.setText((TURN == 'W') ? "WHITE PLAYS": "BLACK PLAYS");
+
+		//Check the check
+		RULE_SET.isChecked();
+
+		//Reset the can move array
+		resetCanMove();
+
+		//Redraw board
+		update(pnlREF.getGraphics());
+	}
+
+	/**
+	* Function used to undo the last move from the MOVE_LIST
+	*/
+	public void Undo(){
+		//If there are no moves to be undone
+		if(MOVE_LIST.size() == 0){
+			//Print error message and exit the function
+			JOptionPane.showMessageDialog(null, "There is no move to undo", "Cannot Undo", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		//Reverse the move using the reverseMove function
+		reverseMove(MOVE_LIST.lastElement());
+
+		//Remove the move entry from the List and Vector
+		MOVE_LIST.removeElementAt(MOVE_LIST.size() - 1);
+		lstREF.setListData(MOVE_LIST);
+	}
+
+	/**
+	* Function used to save the move list to a save file
+	* @param flGame Reference to the file to be written to
+	*/
+	public void saveGame(File flGame){
+		//Commbine Move list into one String
+		String Text = MOVE_LIST.elementAt(0) + "\n";
+		for(int i = 1; i < MOVE_LIST.size(); i++){
+			Text += MOVE_LIST.elementAt(i) + "\n";
+		}
+
+		//Write to file
+		try{
+			//Open file stream
+			FileOutputStream out = new FileOutputStream(flGame);
+			//Write output
+			out.write(Text.getBytes());
+			//Close File Stream
+			out.close();
+			//Output to the user
+			JOptionPane.showMessageDialog(null, "Your game has been saved successfully", "Save Successful", JOptionPane.INFORMATION_MESSAGE);
+
+		}catch(Exception e){}
+		
+	}
+
+	/**
+	* Function used to load a chess game from a file containing move log entries
+	*/
+	public void loadGame(File flGame){
+		//Grid Coordinates
+		int x = 0, y =0, dx =0, dy = 0;
+		//Read type for each line in the file
+		int type = 0;
+
+		//Create a new game
+		resetGame();
+
+		//Replay all moves
+		try{
+			//File reader
+			Scanner read = new Scanner(flGame);
+			
+			//Till EOF
+			while(read.hasNext()){
+				//Get stinf input
+				String part = read.next();
+				
+				//First part of line
+				if(type % 3 == 0){//Store positions
+					//From
+					x = (int)(part.charAt(0)) - (int)('a');
+					y = 8 - Integer.parseInt(part.charAt(1) + "");
+				}
+				//Second part of line
+				else if(type % 3 == 1){//Replicate move 
+					//To
+					dx = (int)(part.charAt(0)) - (int)('a');
+					dy = 8 - Integer.parseInt(part.charAt(1) + "");
+
+					//Move the piece
+					pieceMove(x, y, dx, dy);
+				}
+
+				//Increment type counter
+				type++;
+				
+				//System.out.println(read.next());
+
+			}
+		}catch(Exception e){}
+
+		//Output success message to user
+		JOptionPane.showMessageDialog(null, "Your game has been loaded successfully", "Load Successful", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	/** 
@@ -352,19 +551,31 @@ public class ChessGame implements MouseListener{
 		drawBoard(dbg, xOff, yOff);
 		
 		
-		
-		int op = 60, del = 5;
+		//Opacity and Delay
+		int op = 10, del = 5;
+
+		//Draw Board Border
 		for(int i = 0; i < 50; i++){
+			//Change opacity after delay
 			if(i % del == 0){op += 10;}
-			dbg.setColor(new Color(0,0,0, 255 - op));
+			//Set the color 
+			dbg.setColor(new Color(BLACK.darker().darker().getRed(), BLACK.darker().darker().getGreen(), BLACK.darker().darker().getBlue(), 255 - op));
+			//Draw Board Borders
+				//Left
 			dbg.drawLine(xOff - i, yOff - i , xOff - i, yOff + SQUARE_SIZE * 8 + i );
+				//Top
 			dbg.drawLine(xOff - i, yOff - i , xOff + SQUARE_SIZE * 8 + i, yOff - i );
+				//Right
 			dbg.drawLine(xOff + SQUARE_SIZE * 8 + i, yOff - i , xOff + SQUARE_SIZE * 8 + i, yOff + SQUARE_SIZE * 8 + i );
+				//Bottom
 			dbg.drawLine(xOff - i, yOff + SQUARE_SIZE * 8 + i , xOff + SQUARE_SIZE * 8 + i, yOff + SQUARE_SIZE * 8 + i );
 		}
 
+		//Draw Coordinates
 		for(int i = 0; i < 8; i++){
-			dbg.setColor(Color.white);
+			//Set Color
+			dbg.setColor(new Color(WHITE.getRed(), WHITE.getGreen(), WHITE.getBlue()));
+			//Draw coordinates
 			dbg.drawString(ALPHA[i], SQUARE_SIZE * i + 75, SQUARE_SIZE * 8 + yOff + 30);
 			dbg.drawString((8 - i) + " ", xOff - 30, SQUARE_SIZE * i + 80);
 		}

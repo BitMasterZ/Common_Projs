@@ -13,6 +13,8 @@ public class ChessRules{
 
 	//Check variables
 	boolean WHITE_CHECK, BLACK_CHECK;
+
+	//Mode number of move checking (0:Normal, 1:Check)
 	int MODE;
 
 	/**
@@ -69,20 +71,27 @@ public class ChessRules{
 		}
 	}
 
+	/**
+	* Function used to enable cannmove or check
+	* @param i  X Block number
+	* @param j Y Block number
+	*/
 	public void markFlag(int i, int j){
-		if(MODE == 0){
+		if(MODE == 0){//NORMAL MODE
+			//Enable movement
 			cgREF.CANMOVE[j][i] = 1;
 		}
-		else if (MODE == 1){
+		else if (MODE == 1){//CHECK MODE
+			//Toggle the corresponding check variable to true
 			if(cgREF.getType(cgREF.GRID[j][i]) == 'K'){
+				//WHITE CHECK
 				if(cgREF.getColor(cgREF.GRID[j][i]) == 'W'){WHITE_CHECK = true;}
+				//BLACK CHECK
 				if(cgREF.getColor(cgREF.GRID[j][i]) == 'B'){BLACK_CHECK = true;}
-			}
-			//System.out.println("White check: " + WHITE_CHECK + ", Black check: " + BLACK_CHECK);
+			}		
 		}
-
-
 	}
+
 	/**
 	* Check if a particular square is empty
 	* @param i X Block number
@@ -117,17 +126,24 @@ public class ChessRules{
 	* Check if a king of a certain color is checked
 	*/
 	public void isChecked(){
+		//Reset to false
 		BLACK_CHECK = false;
 		WHITE_CHECK = false;
 
+		//Toggle check mode
 		MODE = 1;
+
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j < 8; j++){
+				//If the square is not unoccupied
 				if(!isEmpty(i, j)){
+					//Calculate all possible moves for the piece
 					calcMoves (i, j);
 				}
 			}
 		}
+
+		//Toggle normal mode
 		MODE = 0;
 	}
 
@@ -246,14 +262,24 @@ public class ChessRules{
 	* @param j Y Block number
 	*/
 	public void KnightRules(int i, int j){
+		//Offset check
 		int x = 0, y = 0;
+
+		//Direction toggle
 		for(int k = 0; k < 2; k++){
+			//Swap position check depending on iteration
+				//2 vertical and 1 horizontal
 			if(k == 0){x = 1; y = 2;}
+				//1 vetrical and 2 horizontal
 			if(k == 1){x = 2; y = 1;}
+			//Check for all 4 possible moves for particular orientation 
 			for(int l = 0; l < 4; l++){
+				//If the square is unoccupied or occupied by an enemy
 				if(isEmpty(i + x, j + y) || isEnemy(i + x, j + y)){
+					//Mark square
 					markFlag(i + x, j + y);
 				}
+				//Swap direction
 				x = -x;
 				if(l % 2 == 1){y = -y;}
 			}
