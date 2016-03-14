@@ -1,14 +1,27 @@
 import java.awt.*;
 import javax.swing.JFrame;
-
+/** Superclass which defines basic characterisitics and functions any GameCharacter can do
+* @author Shobhit
+* @version 2.0
+*/
 public class GameCharacter{
+	//Character Position
 	protected int X, Y;
+	//Character size
 	protected double W, H;
+	//Used to grow character size depending on a scale factor
 	protected double GX = 1, GY = 1;
+	//Character movement speed
 	protected int MSPEED = 1;
+	//Enable//Disable a characters independant movement
 	protected boolean CANMOVE = true;
+	//A reference to the main class
 	protected clsMain RUNNER_REF;
 
+	/** Constructor used to initialize the main character
+	* @param X_ X position on map
+	* @param Y_ Y position on map
+	*/ 
 	public GameCharacter(int X_, int Y_, double W_, double H_, clsMain Ref){
 		X = X_; Y = Y_;
 		W = W_; H = H_; 

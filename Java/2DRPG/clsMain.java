@@ -72,7 +72,7 @@ public class clsMain extends JFrame implements ActionListener{
 
 			//Draw the GridMap		
 		MAP.MDraw(dbg, 1);
-
+			//Draw Player on Screen
 		P1.mDraw(dbg, 1, Color.GREEN);
 
 		//Double buffering
