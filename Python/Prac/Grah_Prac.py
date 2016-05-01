@@ -1,14 +1,18 @@
-#Basic graphics tutorial
+#-----------------Basic graphics tutorial
+# Name: Shobhit
+#
 import sys, pygame;
 import time;
 
 #Utility Classes
 class Timer:
+	#Constructor
 	def __init__(self, cyc):
 		self.start = 0
 		self.delay = cyc;
-	
 
+	#Used to dtermine clock cycle
+	#returns true if one cycle in complete
 	def tick(self):
 		if (time.time() - self.start) * 1000 > self.delay:
 			self.start = time.time() 
@@ -18,29 +22,30 @@ class Timer:
 
 #Shape classes
 class Rect:
+	#Constructor
 	def __init__(self, coords, dimens, RGB):
 		self.x, self.y = coords
 		self.w, self.h = dimens
 		self.col = RGB
 		self.keyFlags = [False, False, False, False]
 		self.keys = []
-
+	
+	#Assign movement key assignment
 	def assignKeys(self, asi):
 		self.keys = asi
-
+	
+	#Keypress and movement
 	def move(self, maxx, maxy):
 		pressed = pygame.key.get_pressed()
 		if pressed[self.keys[0]]: self.keyFlags[0] = True 
 		if pressed[self.keys[1]]: self.keyFlags[1] = True
 		if pressed[self.keys[2]]: self.keyFlags[2] = True
 		if pressed[self.keys[3]]: self.keyFlags[3] = True
-		
 		if event.type == pygame.KEYUP:
 			if event.key == self.keys[0]: self.keyFlags[0] = False
 			if event.key == self.keys[1]: self.keyFlags[1] = False
 			if event.key == self.keys[2]: self.keyFlags[2] = False
 			if event.key == self.keys[3]: self.keyFlags[3] = False
-
 		if self.keyFlags[0] and self.x + self.w < maxx : #RIGHT
 			self.x =  self.x + 0.5
 		if self.keyFlags[1] and self.x > 0: #LEFT
@@ -50,7 +55,7 @@ class Rect:
 		if self.keyFlags[3] and self.y + self.h < maxy: #DOWN
 			self.y =  self.y + 0.5		
 
-
+	
 	def draw(self, scr):
 		pygame.draw.rect(scr, self.col, pygame.Rect(self.x, self.y, self.w, self.h))
 
