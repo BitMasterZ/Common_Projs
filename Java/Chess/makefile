@@ -4,10 +4,10 @@
 JAR = Chess.jar 
 
 # name for main executable class
-EXE = clsGame
+EXE = clsMain
 
 #names of java files to be compiled
-OBJECTS = clsGame.java ChessGame.java ChessRules.java
+OBJECTS = clsGame.java clsMain.java ChessGame.java ChessRules.java ClientServerSocket.java MessageBox.java
  
 compile:
 	javac $(OBJECTS)

@@ -45,16 +45,22 @@ public class ChessGame implements MouseListener{
 	boolean GAME_OVER = false;
 		//Offset for drawing board on screen
 	int xOff = 50, yOff = 50;
+		//Which side the player sees the board from
+	boolean PRESPECT = true;
+
+	ClientServerSocket SOCKET;
 
 	/** 
 	* Constructor used to create an instance of a chess game
 	* @param pnl Reference to the JPanel used in clsGame
 	*/
-	public ChessGame(JPanel pnl, JLabel lbl, JList<String> moves){
+	public ChessGame(JPanel pnl, JLabel lbl, JList<String> moves, boolean Pr, ClientServerSocket socket){
 		//Assign reference
 		pnlREF = pnl;
 		lblREF = lbl;
 		lstREF = moves;
+		PRESPECT = Pr;
+		SOCKET = socket;
 
 		//Display
 		lblREF.setText("WHITE PLAYS");
@@ -202,21 +208,22 @@ public class ChessGame implements MouseListener{
 	*/
 	public void drawBoard(Graphics g, int xOff, int yOff){
 		//Used to change square color
-		boolean blnAlt = false;
+		boolean blnAlt = !PRESPECT;
 		//The color of the square
 		Color blockCol = Color.black;
 
 		for(int i = 0;i < GRID.length; i++){
 			for(int j = 0;j < GRID[i].length; j++){
+				int row = (PRESPECT)? i: 7-i; 
 			//Pick color of square
 				//Alternate color of square
 				blockCol = (blnAlt) ? new Color(BLACK.getRed() , BLACK.getGreen(), BLACK.getBlue(), BLACK.getAlpha()) : new Color(WHITE.getRed(), WHITE.getGreen(), WHITE.getBlue());;
 				//If piece is selected
-				blockCol = (SELECTED[0] == j && SELECTED[1] == i) ? Color.yellow : blockCol;
+				blockCol = (SELECTED[0] == j && SELECTED[1] == row) ? Color.yellow : blockCol;
 				//If a piece can move to that certain block
-				blockCol = (CANMOVE[i][j] == 1) ? ((GRID[i][j] == 0) ? Color.cyan : Color.red): blockCol;
-				blockCol = (RULE_SET.BLACK_CHECK && getType(GRID[i][j]) == 'K' && getColor(GRID[i][j]) == 'B') ? Color.magenta.darker() : blockCol;
-				blockCol = (RULE_SET.WHITE_CHECK && getType(GRID[i][j]) == 'K' && getColor(GRID[i][j]) == 'W') ? Color.magenta.darker() : blockCol;
+				blockCol = (CANMOVE[row][j] == 1) ? ((GRID[row][j] == 0) ? Color.cyan : Color.red): blockCol;
+				blockCol = (RULE_SET.BLACK_CHECK && getType(GRID[row][j]) == 'K' && getColor(GRID[row][j]) == 'B') ? Color.magenta.darker() : blockCol;
+				blockCol = (RULE_SET.WHITE_CHECK && getType(GRID[row][j]) == 'K' && getColor(GRID[row][j]) == 'W') ? Color.magenta.darker() : blockCol;
 				//Alternate
 				blnAlt = !blnAlt;
 
@@ -230,7 +237,7 @@ public class ChessGame implements MouseListener{
 			//Draw chesspiece on square
 				if(GRID[i][j] != 0){
 					try{
-						g.drawImage(getImage(getColor(GRID[i][j]), getType(GRID[i][j])), j * SQUARE_SIZE + xOff, 
+						g.drawImage(getImage(getColor(GRID[row][j]), getType(GRID[row][j])), j * SQUARE_SIZE + xOff, 
 							i * SQUARE_SIZE + yOff, SQUARE_SIZE, SQUARE_SIZE, null);
 					}catch(Exception e){
 						System.out.println("Couldnt draw image");
@@ -280,6 +287,10 @@ public class ChessGame implements MouseListener{
 
 		//Redraw board
 		update(pnlREF.getGraphics());
+		if(SOCKET != null){
+			System.out.println("Online: Change turn " + TURN);
+		}
+
 	}
 
 	/**
@@ -486,6 +497,7 @@ public class ChessGame implements MouseListener{
 			return;
 		}
 		
+		if(!PRESPECT){y = 7 - y;}
 		//Check can move
 		if(CANMOVE[y][x] == 1){// BLUE MOVABLE SQUARE
 			//Simulate chess move
@@ -572,12 +584,22 @@ public class ChessGame implements MouseListener{
 		}
 
 		//Draw Coordinates
-		for(int i = 0; i < 8; i++){
-			//Set Color
-			dbg.setColor(new Color(WHITE.getRed(), WHITE.getGreen(), WHITE.getBlue()));
-			//Draw coordinates
-			dbg.drawString(ALPHA[i], SQUARE_SIZE * i + 75, SQUARE_SIZE * 8 + yOff + 30);
-			dbg.drawString((8 - i) + " ", xOff - 30, SQUARE_SIZE * i + 80);
+		if(PRESPECT){
+			for(int i = 0; i < 8; i++){
+				//Set Color
+				dbg.setColor(new Color(WHITE.getRed(), WHITE.getGreen(), WHITE.getBlue()));
+				//Draw coordinates
+				dbg.drawString(ALPHA[i], SQUARE_SIZE * i + 75, SQUARE_SIZE * 8 + yOff + 30);
+				dbg.drawString((8 - i) + " ", xOff - 30, SQUARE_SIZE * i + 80);
+			}
+		}else{
+			for(int i = 7; i >= 0; i--){
+				//Set Color
+				dbg.setColor(new Color(WHITE.getRed(), WHITE.getGreen(), WHITE.getBlue()));
+				//Draw coordinates
+				dbg.drawString(ALPHA[i], SQUARE_SIZE * i + 75, SQUARE_SIZE * 8 + yOff + 30);
+				dbg.drawString((i+1) + " ", xOff - 30, SQUARE_SIZE * i + 80);
+			}
 		}
 		//Double buffering
 		g.drawImage(dbImage, 0, 0, pnlREF);

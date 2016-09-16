@@ -40,7 +40,7 @@ public class clsGame extends JFrame implements ActionListener{
 	* @param W Width of the GUI window
 	* @param H Height of the GUI window
 	*/
-	public clsGame(int W ,int H){
+	public clsGame(int W ,int H, ClientServerSocket socket){
 		//Initial Setup
 		super("Chess");
 		setBounds(this.getToolkit().getScreenSize().width / 2 - W / 2, 
@@ -102,17 +102,12 @@ public class clsGame extends JFrame implements ActionListener{
 		setVisible(true);
 		
 		//Start game
-		instGAME = new ChessGame(pnlCENTER, lblSTATS, MOVE_LIST);
+		instGAME = new ChessGame(pnlCENTER, lblSTATS, MOVE_LIST, true, socket);
 		instGAME.colorScheme(colP1[0], colP2[0]);
 		pnlCENTER.addMouseListener(instGAME);
 		
 	}
 
-	public static void main (String args[]){
-		//Obj instance for clsGame
-		clsGame ABC = new clsGame(790, 730);
-
-	}
 
 	public void actionPerformed(ActionEvent event){
 		//Menu options
