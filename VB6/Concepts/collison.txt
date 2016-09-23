@@ -1,0 +1,42 @@
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+'the following moves the ball (by 150) using the cursor keys
+Select Case KeyCode
+    Case vbKeyRight
+        ball.Left = ball.Left + 150
+    Case vbKeyLeft
+        ball.Left = ball.Left - 150
+       
+    Case vbKeyUp
+        ball.Top = ball.Top - 150
+
+    Case vbKeyDown
+         ball.Top = ball.Top + 150
+       
+End Select
+
+'In this section, check for collision, have message, and
+'return ball to 0,0 location
+If ball.Top <= wall.Top + wall.Height Then     'from bottom
+    If ball.Left <= wall.Left + wall.Width Then  'from right
+        If ball.Top + ball.Height >= wall.Top Then  'from top
+            If ball.Left + ball.Width >= wall.Left Then 'from left
+                MsgBox "Ball touched wall"
+                Select Case KeyCode
+        Case vbKeyRight
+            ball.Left = ball.Left - 150
+        Case vbKeyLeft
+            ball.Left = ball.Left + 150
+       
+        Case vbKeyUp
+            ball.Top = ball.Top + 150
+
+        Case vbKeyDown
+            ball.Top = ball.Top - 150
+       
+            End Select
+            End If
+        End If
+        End If
+        End If
+       
+End Sub

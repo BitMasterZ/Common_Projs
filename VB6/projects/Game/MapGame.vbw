@@ -1,0 +1,16 @@
+frmTown = 104, 104, 989, 546, , 78, 78, 963, 520, C
+GridMap = 208, 208, 1086, 650, 
+Character = 26, 26, 911, 468, 
+NPCAI = 78, 78, 1138, 600, 
+frmStats = 26, 26, 904, 468, C, 104, 104, 982, 546, C
+Gate = 0, 0, 0, 0, C
+mdlSyncKey = 130, 130, 1015, 572, C
+mdlBitblt = 26, 26, 911, 468, C
+frmDungeon = 52, 52, 937, 494, , 26, 26, 911, 468, C
+EnemyAI = 26, 26, 904, 468, C
+MagicAttack = 0, 0, 878, 442, 
+frmMenu = 156, 156, 1034, 598, C, 130, 130, 1008, 572, C
+ShamanAI = 52, 52, 930, 494, C
+RangedAttack = 104, 104, 982, 546, C
+PhysicalAttack = 78, 78, 963, 520, Z
+GuardAI = 0, 0, 0, 0, C

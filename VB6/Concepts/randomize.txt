@@ -1,0 +1,3 @@
+Dim b As Integer, bh As Integer
+b = Int(Rnd * 1000 + 150)
+bh = Int(Rnd * 1000) Mod 2 

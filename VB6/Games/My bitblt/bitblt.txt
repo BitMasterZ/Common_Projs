@@ -1,0 +1,4 @@
+BitBlt Me.hDC, intleft, intop, imgWidth, imgHeight, picMask.hDC, _
+     intframeX * imgWidth, intframeY * imgHeight, SRCAND
+BitBlt Me.hDC, intleft, intop, imgWidth, imgHeight, picSprite.hDC, _
+  intframeX * imgWidth, intframeY * imgHeight, SRCINVERT

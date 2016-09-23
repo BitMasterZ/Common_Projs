@@ -1,0 +1,154 @@
+Abase
+Humiliate,to lower, , , , 
+Abash 
+Embarass, , , , , 
+Abate
+Lessen,decrease , , , , 
+Abbreviate
+Shorten, , , , , 
+Abdicate
+Give up, , , , , 
+Abduction
+Kidnapping, , , , , 
+Aberrant
+Abnormal, , , , , 
+Abet
+Aid, , , , , 
+Abhor
+Detest, , , , , 
+Abject
+Pitiful,lacking pride, , , , 
+Abjure
+Renounce an oath, , , , , 
+Abnegation
+Self sacrifice, , , , , 
+Abolish
+Cancel, , , , , 
+Abominable
+Detestable, , , , , 
+Aboriginal
+Native, , , , , 
+Abortive
+Unsucessful, , , , , 
+Abrade
+Erode, , , , , 
+Abridge
+shorten, , , , , 
+abscond
+leave in secret and hide, , , , , 
+Absolute
+Certain, , , , , 
+Absolve
+Pardon, , , , , 
+Absorb
+Assimilate, , , , , 
+Abstain
+Refrain, , , , , 
+Abstemious
+Temperate, , , , , 
+Abstinence
+restraint, , , , , 
+Abstract
+Theoretical, , , , , 
+Abtruse
+Obscure,profound, , , ,
+Abundant
+Plentiful, , , , , 
+Abusive
+Insulting, , , , ,
+Abut
+Border upon, , , , , 
+Abysmal
+Bottomless, , , , , 
+abyss
+vast bottomless pit, , , , , 
+academic
+educational, , , , , 
+accede
+agree, , , , , 
+accelerate
+move faster, , , , , 
+accentuate
+emphasize, , , , , 
+acessabile
+obtainable, , , , , 
+acessory
+additional object, , , , , 
+acclaim
+announce with great approval, , , , , 
+acclimate
+adjust to climate, , , , , 
+acclivity
+sharp upslope of hill, , , , , 
+accolade
+award, , , , , 
+accommodate
+adapt, , , , , 
+accomplice
+partner in crime, , , , , 
+accord
+agreement, , , , , 
+accost
+approach and speak, , , , , 
+accoutre
+equip, , , , , 
+acerbity
+bitterness of speech, , , , , 
+acetic
+vinegary, , , , , 
+acidulous
+sour,sharp, , , , 
+acknowledge
+recognize, , , , , 
+acme
+top,pinnacle, , , ,
+acoustics
+science of sound, , , , , 
+acquiesce
+assent, , , , , 
+acquire
+obtain, , , , , 
+acquittal
+deliverance from charge, , , , , 
+acrid
+sharp,pungent, , , , 
+acrimonious
+bitter in words or manner, , , , , 
+acrophobia
+fear of heights, , , , , 
+acturial
+calculating, , , , , 
+acuity
+sharpness, , , , , 
+acumen
+keenness, , , , , 
+acute
+brief and severe,perceptive, , , , 
+adage
+proverb, , , , , 
+adamant
+inflexible, , , , , 
+adapt
+modify, , , , , 
+addiction
+habitual need, , , , , 
+addle
+muddle,confuse, , , ,
+address
+direct a speech to, , , , , 
+adept
+expert at, , , , , 
+adhere
+stick fast, , , , , 
+adherant
+supporter, , , , , 
+adjacent
+adjoining, , , , , 
+adjunct
+added or attached, , , , , 
+admonition
+warning, , , , , 
+adorn
+decorate, , , , , 
+adroit
+skillful, , , , , 

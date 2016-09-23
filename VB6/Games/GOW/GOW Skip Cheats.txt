@@ -1,0 +1,7 @@
+"Level        Password 
+"
+"Level 1:     *GOWLvl2* "
+"Level 2:     **GOWLvl3** "
+"Level 3:     ***GOWLvl4*** "
+"Level 4:     ****GOWLvl5**** "
+"Level 5:     *****GOWLvl6***** "
