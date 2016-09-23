@@ -1,0 +1,57 @@
+<html>
+<head>
+<style>
+.Cont{
+	font-family:Agency FB;
+	border-style:dashed;
+	border-color:green;
+	background-color:rgb(0,255,0);
+	opacity:0.5;
+	border-width:1;
+	padding:25px;
+}
+</style>
+<title>Event handlers</title>
+<h1 id="Gr" class="Cont">Grow</h1>
+<br><br><br>
+<h1 id="Sh" class="Cont">Shrink</h1>
+</head>
+<body>
+<br>
+
+<div id="box"></div>
+<script type="text/javascript">
+	var Box=document.getElementById("box");
+	var GrowBox=document.getElementById("Gr");
+	var ShrinkBox=document.getElementById("Sh");
+	var X=50,Y=50;
+	//Box.style.fontFamily="Agency FB";
+	Box.style.backgroundColor="red";
+	Box.style.width=X+"px";
+	Box.style.height=Y+"px";
+	
+	GrowBox.addEventListener("mousemove",function(){YMove(1)});
+	ShrinkBox.addEventListener("mousemove",function(){YMove(-1)});
+	
+	function UpdatePosition(){
+		Box.style.height=Y+"px";
+		//Box.style.width=X+"px";
+
+	}
+	function YMove(dir){
+		Y+=5*dir;
+		X+=5*dir;
+		//alert(Box.style.top);
+		UpdatePosition();
+	}
+	
+	for(x in GrowBox){
+		//document.write("<br />"+x);
+	}
+	
+	
+	
+</script>
+</body>
+
+</html>

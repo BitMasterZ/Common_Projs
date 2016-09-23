@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<h1>Timers</h1>
+<p id="AB"> Text</p>
+<button onclick="Start();">Start Timer</button>
+<button onclick="giveCookie();">Cookies!</button>
+<script type="text/javascript">
+	var Event;
+	function Stop(){
+		clearInterval(Event);
+		document.write("<br /><br /><center><button onclick=\"Start();\"> Start me again</button></center>");
+	}
+	function Start(){
+		Event=setInterval("document.write('<button onclick=\"Stop();\"> Stop me</button>');",2000);
+	}
+	function giveCookie(){
+		document.cookie="username=John Dalton;expires=Mon, 11 May 2015 12:00:00 UTC;";
+		alert(document.cookie);
+	}
+	document.getElementById("AB").innerHTML="<b>Name</b>";
+	confirm("fhg")
+	var num=parseInt(prompt("Enter number",0));
+	alert(num);
+	//parseFloat
+	
+	
+</script>
+</body>
+
+</html>

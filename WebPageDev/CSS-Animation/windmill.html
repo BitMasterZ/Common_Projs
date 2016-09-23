@@ -1,0 +1,304 @@
+<html>
+<head>
+<style>
+.stripe{
+	position:fixed;
+	background:rgb(255,255,255);
+	width:40px;
+	height:8px;
+	border-radius:20px;
+}
+
+.sky{
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:300px;
+	background:cyan;
+	opacity:0.15;
+}
+.ground{
+	position:fixed;
+	left:0;
+	width:100%;
+	height:100px;
+	background:rgb(0,205,0);
+}
+.road{
+	position:fixed;
+	left:0;
+	width:100%;
+	height:70px;
+	background:rgb(100,100,100);
+}
+.stick{
+	position:fixed;
+	top:150px;
+	left:200px;
+	height:200px;
+	width:10px;
+	background:black;
+	box-shadow:0px 15px 30px;
+	//border-radius:100px;
+	//-webkit-transform:matrix(0,2,1,1,200,200);
+	
+	//-webkit-transform:skew(10deg,10deg);
+}
+
+.pin{
+	position:fixed;
+	top:150px;
+	left:200px;
+	height:10px;
+	width:10px;
+	background:rgb(220,220,220);
+	border-radius:100px;
+	
+}
+
+.blade1{
+	position:fixed;
+	top:150px;
+	left:105px;
+	height:10px;
+	width:200px;
+	background:orange;
+//	-webkit-transform:skew(100deg,0deg);
+	//box-shadow:90px 15px 60px cyan;
+	opacity:0.9;
+}
+.blade2{
+	position:fixed;
+	top:55px;
+	left:200px;
+	height:200px;
+	width:10px;
+	background:orange;
+	//-webkit-transform:skew(0deg,100deg);
+	//box-shadow:0px 15px 60px cyan;
+	opacity:0.9;
+}
+
+.car{
+	position:relative;
+	top:400px;
+	left:-1000px;
+	width:100px;
+	height:50px;
+	background-image:url("car1.png");
+	background-size:100px 50px;
+
+	-webkit-animation-name:Car_Anim;
+	-webkit-animation-duration:10ms;
+	-webkit-animation-delay:0s;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:normal;
+	-webkit-animation-play-state:running;
+
+	-webkit-animation-name:Cloud;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:normal;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-play-state:running;
+	-webkit-animation-duration:10s;
+	-webkit-animation-delay:50s;
+
+	
+}
+
+.cloud{
+	position:absolute;
+	width:150px;
+	height:100px;
+	top:10px;
+	left:-150px;
+	background-image:url("cloud.png");
+	background-size:150px 100px;
+	opacity:0.7;
+	//box-shadow:0px 15px 200px gray;
+
+	-webkit-animation-name:Cloud;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:alternate;
+	-webkit-animation-play-state:running;
+	-webkit-animation-duration:20s;
+	-webkit-animation-delay:0s;
+
+}
+
+#g1{top:300px;}
+#r1{top:400px;}
+#r2{top:479px;}
+#g2{top:540px;}
+
+#c0{
+	top:0px;
+	-webkit-animation-duration:65s;
+	-webkit-animation-delay:0s;
+}
+#c1{
+	top:15px;
+	-webkit-animation-direction:normal;
+}
+#c2{
+	top:75px;
+	-webkit-animation-delay:5s;
+}
+#c3{
+	top:100px;
+	-webkit-animation-duration:55s;
+	-webkit-animation-delay:1s;
+
+}
+#c4{
+	top:150px;
+	-webkit-animation-duration:50s;
+	-webkit-animation-delay:5s;
+	-webkit-animation-direction:normal;
+}
+#c5{
+	top:200px;
+	-webkit-animation-duration:60s;
+	-webkit-animation-delay:20s;
+
+}
+#c6{
+	top:200px;
+	-webkit-animation-duration:25s;
+	-webkit-animation-delay:1s;
+
+}
+#c7{
+	top:100px;
+	-webkit-animation-duration:30s;
+	-webkit-animation-delay:15s;
+	-webkit-animation-direction:normal;
+}
+#c8{
+	top:50px;
+	-webkit-animation-duration:30s;
+	-webkit-animation-delay:57s;
+
+}
+
+
+#blade{
+	-webkit-animation-name:Blade;
+	-webkit-animation-duration:5s;
+	-webkit-animation-delay:1s;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:normal;
+	-webkit-animation-play-state:running;
+}
+
+@-webkit-keyframes Blade{
+	0% {
+		-webkit-transform:rotate(0deg);
+	}
+	25% {
+		-webkit-transform:rotate(90deg);
+	}
+	50% {
+		-webkit-transform:rotate(180deg);
+	}
+
+	75% {
+		-webkit-transform:rotate(270deg);
+	}
+	100% {
+		-webkit-transform:rotate(360deg);
+	}
+	
+}
+@-webkit-keyframes Cloud{
+	0% {
+		left:-25%;
+	}
+	25% {
+		left:0%;
+	}
+	50% {
+		left:50%;
+	}
+
+	75% {
+		left:100%;
+	}
+	100% {
+		left:125%;
+	}
+	
+}
+
+@-webkit-keyframes Car_Anim{
+	0% {background-image:url("car1.png");}
+	25% {background-image:url("car2.png");}
+	33% {background-image:url("car3.png");}
+	50% {background-image:url("car2.png");}
+	66% {background-image:url("car1.png");}
+	75% {background-image:url("car2.png");}
+	99% {background-image:url("car3.png");}
+	100% {background-image:url("car2.png");}
+}
+
+
+</style>
+
+
+</head>
+<body>
+<div class="sky">
+</div>
+
+<div class="ground" id="g1">
+</div>
+<div class="ground" id="g2">
+</div>
+<div class="road" id="r1">
+</div>
+<div class="road" id="r2">
+</div>
+
+<div class="car">
+</div>
+
+
+<div class="cloud" id="c0">
+</div>
+<div class="cloud" id="c1">
+</div>
+<div class="cloud" id="c2">
+</div>
+<div class="cloud" id="c3">
+</div>
+<div class="cloud" id="c4">
+</div>
+<div class="cloud" id="c5">
+</div>
+<div class="cloud" id="c6">
+</div>
+<div class="cloud" id="c7">
+</div>
+<div class="cloud" id="c8">
+</div>
+
+
+
+<div class="stick">
+</div>
+
+<div class="blade1" id="blade">
+</div>
+<div class="blade2" id="blade">
+</div>
+
+<div class="pin">
+</div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<p>
+1. For factorial <br />
+2. For check prime <br />
+3. For square <br />
+4. For check odd/even <br />
+<button onclick="PickAction();">Enter a value</button>
+
+<script type="text/javascript">
+	var VAL=parseFloat(prompt("Enter Number ",0));
+
+	function factorial(num){
+		if(num<=1){
+			return 1;
+		}
+		return num*factorial(num-1);
+	}
+	function checkPrime(num){
+		var isPrime=true;
+		for(var i=2;i<num;i++){
+			isPrime=isPrime && (num%i!=0);
+		}
+		return isPrime;
+	}
+	function square(num){
+		return num*num;
+	}
+	function oddeven(num){
+		return (num%2==0)?"Even":"Odd";
+	}
+	
+	function PickAction(){
+		var opt=parseInt(prompt("Enter the option Number ",0));
+		switch(opt){
+			case 1:
+				alert("Factorial: "+factorial(VAL));
+				break;
+			case 2:
+				alert("is Prime: "+checkPrime(VAL));
+				break;
+			case 3:
+				alert("Square "+square(VAL));
+				break;
+			case 4:
+				alert("Odd or even? "+oddeven(VAL));
+				break;
+			
+		}
+	}	
+	
+</script>
+</body>
+
+</html>

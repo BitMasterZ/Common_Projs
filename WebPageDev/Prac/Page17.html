@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<p>
+1. For addition <br />
+2. For subtraction <br />
+3. For multiplication <br />
+4. For division <br />
+<button onclick="PickAction();">Enter a value</button>
+
+<script type="text/javascript">
+	var V1=parseInt(prompt("Enter Number 1",0));
+	var V2=parseInt(prompt("Enter Number 2",0));
+	
+	function PickAction(){
+		var opt=parseInt(prompt("Enter the option Number ",0));
+		switch(opt){
+			case 1:
+				alert("Sum: "+(V1+V2));
+				break;
+			case 2:
+				alert("Difference: "+(V1-V2));
+				break;
+			case 3:
+				alert("Product: "+(V1*V2));
+				break;
+			case 4:
+				var opt2=parseInt(prompt("Do you want the remainder(1) or the quotient(2) ",0));
+				switch(opt2){
+					case 1:
+						alert("Remainder: "+(V1%V2));
+						break;
+					case 2:
+						alert("Quotient: "+(V1/V2));
+						break;
+				}
+				break;
+			
+		}
+	}	
+	
+</script>
+</body>
+
+</html>

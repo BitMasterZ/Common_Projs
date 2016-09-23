@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<h1>Converter</h1>
+<button onclick="Convert();">Enter a value in km</button>
+<button onclick="calcProfit();">Enter Prices</button>
+<button onclick="isValidTriangle();">Enter Angles</button>
+<button onclick="Table();">Multiplication table</button>
+<button onclick="power();">Exponentiate</button>
+<button onclick="signCounter();">Enter 10 numbers</button>
+<script type="text/javascript">
+	function Convert(){
+		var num=parseFloat(prompt("Enter a value",0));
+		document.write(num+" km = "+num*1000+" m = "+num*100000+" cm = ");
+		document.write(num*100000/2.25+" in = "+(num*100000/2.25)/12+" feet.")
+	
+	}
+	Greatest(20,20,20);
+	function Greatest(a,b,c){
+		
+		if(a>=b){
+			if(c>a){
+			 document.write("c is the greatest");
+			}else{
+			 document.write("a is the greatest");			
+			}
+		}else{
+			if(c>b){
+				document.write("c is the greatest");
+			}else{
+				document.write("b is the greatest");
+			}		
+		}
+	}
+	function isValidTriangle(){
+		var Angles={A:0,B:0,C:0};
+		for(x in Angles){
+			Angles[x]=parseFloat(prompt("Enter Angle "+x+" in degrees.",0));
+		}
+		
+		var isValid=(Angles.A+Angles.B+Angles.C==180) && (Angles.A!=0)
+					&& (Angles.B!=0)&& (Angles.C!=0);
+				
+		if(!isValid){
+			alert("Given Triangle is Invalid");
+			return false;
+		}else{
+			alert("Given Triangle is Valid");
+			return true;
+		}
+	}	
+	function calcProfit(){
+		var CP=parseFloat(prompt("Enter the Cost Price",0));
+		var SP=parseFloat(prompt("Enter the Selling Price",0));
+		var Profit=SP-CP;
+		if(Profit<0){
+			alert("cost price is greater than selling price. Loss of $"+(-Profit));
+		}else if(Profit>0){
+			alert("cost price is less than selling price. Profit of $"+Profit);
+		}
+		else{
+			alert("cost price is equal to selling price. Zero Profit");
+		}
+	}
+	
+	function Table(){
+		var Text;
+		var num=parseFloat(prompt("Enter a number",0));
+		Text="";
+		for(i=0;i<10;i++){
+			
+			Text+=num+" X "+(i+1)+" = "+((i+1)*num)+"\n";
+		}
+		
+		alert(Text);
+	}
+	function power(){
+		var num=parseFloat(prompt("Enter the Base",0));
+		var exp=parseFloat(prompt("Enter the Exponent",0));
+		var result=1;
+		while(exp!=0){
+			result*=num;
+			exp--;
+		}
+		alert(result);
+	}
+	
+	function signCounter(){
+		var Pos=0,Neg=0,Zer=0;
+		for(var i=0;i<10;i++){
+			var num=parseFloat(prompt("Enter Number "+(i+1),0));
+			if(num>0){Pos++;}
+			else if(num<0){Neg++;}
+			else{Zer++;}
+		}
+		alert("There were "+Pos+" positive numbers, "+Neg+" negative numbers, "+Zer+" zeroes.");
+	}
+	
+</script>
+</body>
+
+</html>

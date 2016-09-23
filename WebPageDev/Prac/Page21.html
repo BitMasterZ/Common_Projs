@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.box{
+	width:100px;
+	height:100px;
+	top:100px;
+	left:200px;
+	background-color:orange;
+	
+	-webkit-animation-name:Rot;
+	-webkit-animation-delay:0s;
+	-webkit-animation-duration:1000ms;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:normal;
+	-webkit-animation-play-state:running;
+
+}
+
+@-webkit-keyframes Rot{
+	0% {-webkit-transform:rotate(0deg);}
+	25% {-webkit-transform:rotate(90deg);}
+	50% {-webkit-transform:rotate(180deg);}
+	75% {-webkit-transform:rotate(270deg);}
+	100% {-webkit-transform:rotate(360deg);}
+}
+
+@-webkit-keyframes Mover{
+	0% {-webkit-transform:translate(0px,0px);}
+	25% {-webkit-transform:translate(450px,0px);}
+	50% {-webkit-transform:translate(450px,400px);}
+	75% {-webkit-transform:translate(0px,400px);}
+	100% {-webkit-transform:translate(0px,0px);}
+}
+
+@-webkit-keyframes ColChange{
+	0% {background-color:orange;}
+	25% {background-color:red;}
+	40% {background-color:blue;}
+	50% {background-color:white;}
+	75% {background-color:black;}
+	88% {background-color:yellow;}
+	100% {background-color:orange;}
+}
+
+@-webkit-keyframes Trans{
+	0% {border-radius:0px;}
+	12%{border-radius:25px;}
+	25% {border-radius:50px;}
+	37% {border-radius:75px;}
+	50% {border-radius:100px;}
+	62% {border-radius:75px;}
+	75% {border-radius:50px;}
+	87% {border-radius:25px;}
+	100% {border-radius:0px;}
+}
+
+
+
+
+
+</style>
+</head>
+
+
+<body>
+<fieldset>
+<legend>Controls</legend>
+<button onclick="Box.style.WebkitAnimationName='Rot';">Rotate</button>
+<button onclick="Box.style.WebkitAnimationName='ColChange';">Color Change</button>
+<button onclick="Box.style.WebkitAnimationName='Mover';">Move</button>
+<button onclick="Box.style.WebkitAnimationName='Trans';">Transform</button>
+<button onclick="if(Dur-50!=0){Dur-=50};Box.style.WebkitAnimationDuration=Dur+'ms';">Speed++</button>
+<button onclick="Dur+=50;Box.style.WebkitAnimationDuration=Dur+'ms';">Speed--</button>
+
+</fieldset>
+<br><br>
+<div class="box" id="asd"></div>
+<script type="text/javascript">
+var Box=document.getElementById("asd");
+var Dur=1000;
+
+
+</script>
+</body>
+
+</html>

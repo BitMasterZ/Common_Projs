@@ -1,0 +1,8 @@
+<html>
+<head>
+<br>
+<marquee direction="right" behavior="alternate">
+<h1><u>XYZ School<u></h1>
+</marquee>
+</head>
+</html>

@@ -1,0 +1,95 @@
+<html>
+<head>
+<style>
+	#Heading{
+		position:relative;
+		left:40%;
+		top:40%;
+		font-size:50px;
+		font-family:Agency FB;
+		color:rgb(0,255,0);
+	}
+	#Prog{
+		position:fixed;
+		width:290px;
+		height:25px;
+		left:200px;
+		top:310px;		
+	}
+	#Num{
+		position:fixed;
+		top:283px;
+		left:325px;
+		font-family:Agency FB;
+		font-size:25px;
+		color:white;
+		
+	
+	}
+</style>
+
+</head>
+<main id="Heading">Loading</main>
+
+<body>
+
+<progress value=0 max=100 id="Prog"></progress>
+<p id="Num">asd</p>
+<script type="text/javascript">
+	var ProgBar=document.getElementById("Prog");
+	var Loading=document.getElementById("Heading");
+	var ProgDisp=document.getElementById("Num");
+	var Timer=setInterval(LoadBar,10);
+	var CTX;
+	var PX=200,NX=325,LX=200;
+	//
+	function Rm(){
+		PX-=5;
+		NX-=5;
+		LX-=5;
+		ProgBar.style.left=PX+"px";
+		ProgDisp.style.left=NX+"px";
+		Loading.style.left=LX+"px";
+		if(PX<-300){clearInterval(Timer); Draw();}
+	}
+	function LoadBar(){
+		ProgBar.value++;
+		ProgDisp.innerHTML=ProgBar.value+"%";
+		//Loading.innerHTML="Loading: "+ProgBar.value+"%";
+		if(ProgBar.value==ProgBar.max){
+			clearInterval(Timer);
+			Loading.innerHTML="Load Complete"
+			Timer=setInterval(Rm,1);
+			return;
+		}
+		
+		
+	}
+	
+	function Line(x1,y1,x2,y2){
+		CTX.moveTo(x1,y1);
+		CTX.lineTo(x2,y2);
+		CTX.lineWidth=10;
+		CTX.stroke();
+	}
+	
+	function Circle(x,y,r,start_ang,stop_ang){
+		CTX.beginPath();
+		CTX.arc(x,y,r,start_ang,stop_ang);
+		CTX.fill();
+	
+	}
+	function Draw(){
+		document.write("<canvas width='500px' height='500px' id='Graphics'>sadas</canvas>");
+		CTX=document.getElementById("Graphics").getContext('2d');
+		CTX.fillStyle="rgb(200,200,200)";
+		CTX.strokeRect(0,0,500,500);
+		Line(10,10,200,200);
+		Circle(100,100,40,0,2*Math.PI);
+		//CTX.rotate();
+	}
+
+</script>
+</body>
+
+</html>

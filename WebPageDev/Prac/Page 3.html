@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>Forms</title>
+<center>
+<marquee direction="right" behavior="alternate" loop="4" bgcolor="red" width=400 height=70 hspace=50 vspace=50>
+<h1>Sign up form</h1>
+</marquee>
+</center>
+</head>
+<body>
+<form action="Page2.html" onsubmit="return ValidateForm();">
+<table cellspacing=5>
+
+<tr>
+	<th>Name:</th>
+	<td><input type="text" name="Name" placeholder="asd" id="Name" required autofocus></td>
+</tr>
+<tr>
+	<th>Date of Birth:</th>
+	<td><input type="date" name="DOB" id="DOB"></td>
+</tr>
+<tr>
+	<th>Age:</th>
+	<td><input type="number" name="Age" id="Age" required></td>
+</tr>
+<tr>
+	<th>Email id:</th>
+	<td><input type="email" name="Email" id="Mail" required></td>
+</tr>
+<tr>
+	<th>Password:</th>
+	<td><input type="password" name="Pass" id="Pass" required></td>
+</tr>
+<tr>
+	<th>Address:</th> 
+	<td><textarea>
+	</textarea></td>
+</tr>
+
+<tr>
+	<th>Gender:</th> 
+	<td>
+	<input type="radio" name="Gender" id="Male">Male
+	<br>
+	<input type="radio" name="Gender" id="Female">Female	
+	</td>
+</tr>
+
+
+</table>
+<fieldset>
+<legend> Personal Info</legend>	
+
+	Hobby:
+	<input type="checkbox" name="Hobby" id="Cricket">Cricket
+	<input type="checkbox" name="Hobby" id="Chess">Chess
+	<br>
+	<input type="checkbox" name="Hobby" id="Badminton">Badminton
+	<input type="checkbox" name="Hobby" id="Football">Football
+	
+	<br><br>
+
+	Favorite gadget:
+	<select id="FavGad">
+		<option>Ipad</option>
+		<option>Iphone</option>
+		<option>Android phone</option>
+		<option>Mp3</option>
+		</select>
+
+<br>
+</fieldset>
+<center><input type="submit" value="Sign me up"></center>
+</form>
+<script type="text/javascript">
+
+	var NameBox=document.getElementById("Name");
+	var DOBBox=document.getElementById("DOB");
+	var AgeBox=document.getElementById("Age");
+	var EmailBox=document.getElementById("Mail");
+	var PassBox=document.getElementById("Pass");
+	
+	function ValidateForm(){
+		if(AgeBox.value<0){
+			alert("Invalid age");
+			return false;
+		}
+		
+		if(PassBox.value.length<5){
+			alert("Password is too short");
+			return false;		
+		}
+		
+		return true;
+	}
+	
+</script>
+
+
+</body>
+</html>

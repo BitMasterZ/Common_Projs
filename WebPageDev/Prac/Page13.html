@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<h1>Box Types</h1>
+<button onclick="alert('An alert');">Alert Box</button>
+<button onclick="getAnswer('Accept?');">Confirm Box</button>
+<button id="Ppt">Prompt Box</button>
+<button onclick="window.close();">Exit</button>
+<script type="text/javascript">
+	document.getElementById("Ppt").onclick=function(){getInp('Enter your age');}
+	function getAnswer(Msg){
+		var Ans=confirm(Msg);
+		alert((Ans)?"You said yes":"You said no or you didn't respond");
+	}
+	function getInp(Msg){
+		var Inp=prompt(Msg);
+		if(Inp===null || Inp==""){
+			alert("Invalid input try again");
+			return;
+		}
+		alert(Inp);
+	}
+	document.write("<br><br>");
+	for(i=0;i<13;i++){
+		document.write((i+1)+"\n");
+	}
+	document.write("<br><br>");
+	var person={fname:"Shobhit", lname:"Adlakha", age:20};
+	for(x in person){
+		document.write(x+": "+person[x]+"<br />");
+	}
+	
+/* Events
+	onclick: click event
+	onload: page loaded
+	onunload: page unloaded
+	onfocus: new active element
+	onblur: previous active element
+	onchange: do something when a field changes(example textbox)
+	onsubmit: for <form>
+	onmouseover
+	onmouseout
+	
+*/	
+
+try{
+	//Var a;
+}catch(err){
+	document.write(err);
+}
+document.write("<br><br>Information about the current page<br><br>");
+
+var Info={URL:window.location.href,Domain:window.location.hostname, Path:window.location.pathname,WebProtocol:window.location.protocol};
+	for(x in Info){
+		document.write(x+": "+Info[x]+"<br />");
+	}
+	
+document.write("<br><br>Information about the current browser<br><br>");
+
+var BrowserInfo={AppName:navigator.appName, BrowserName:navigator.appCodeName, Platform:navigator.platform,cookiesEnabled:navigator.cookieEnabled,
+Product:navigator.product,Version:navigator.appVersion,Language:navigator.language,JavaEnabled:navigator.javaEnabled()};
+	for(x in BrowserInfo){
+		document.write(x+": "+BrowserInfo[x]+"<br />");
+	}
+
+</script>
+</body>
+
+</html>

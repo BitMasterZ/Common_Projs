@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Objects</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+	function SetCol(r,g,b){
+		alert(r+", "+g+", "+b);
+	}
+
+ function Triangle(a,b,c){
+	this.A=a;
+	this.B=b;
+	this.C=c;	
+	this.Perimeter=function(){
+		return this.A+this.B+this.C;
+	};
+	this.Print=function(){
+		return "Triangle: A="+this.A+", B="+this.B+", C="+this.C;
+	};
+	this.setColor=function(r,g,b){
+		alert(r+", "+g+", "+b);
+	};
+ }
+
+ var ABC= new Triangle(2,3,5); 
+ //document.write(ABC.A+ABC.B+ABC.C+"<br />");
+ document.write(ABC.Perimeter()+"<br/>");
+ document.write(ABC.Print()+"<br/>");
+ document.write(ABC.A+"<br/>"); 
+ ABC.setColor(23,23,23);
+ 
+ document.write("<br/>"); 
+ document.write("<br/>");
+
+ var DEF= new Triangle(12,3,15); 
+ //document.write(ABC.A+ABC.B+ABC.C+"<br />");
+ document.write(DEF.Perimeter()+"<br/>");
+ document.write(DEF.Print()+"<br/>");
+ document.write(typeof DEF);
+ document.write("<br/>")
+ document.write( DEF instanceof Triangle);
+ 
+ 
+ 
+</script>
+</body>
+
+</html>

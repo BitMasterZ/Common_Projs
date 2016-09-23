@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>Solar System Model</title>
+</head>
+
+<body>
+<button onclick="SHOW_ORBIT=!SHOW_ORBIT;">Show/Hide Orbit</button>
+<img src='sun.png'  width='0px' height='0px' id='Sun' />
+<img src='mercury.png'  width='0px' height='0px' id='Mercury' />
+<img src='venus.png'  width='0px' height='0px' id='Venus' />
+<img src='earth.png'  width='0px' height='0px' id='Earth' />
+<img src='mars.png'  width='0px' height='0px' id='Mars' />
+<img src='jupiter.png'  width='0px' height='0px' id='Jupiter' />
+<img src='saturn.png'  width='0px' height='0px' id='Saturn' />
+<img src='uranus.png'  width='0px' height='0px' id='Uranus' />
+<img src='neptune.png'  width='0px' height='0px' id='Neptune' />
+<img src='pluto.png'  width='0px' height='0px' id='Pluto' />
+
+<script type="text/javascript">
+	var W=window.innerWidth-25,H=window.innerHeight-25;
+	var SCALEFACTOR=0.45,SHOW_ORBIT=false;
+	//alert(W+", "+H);
+	document.write("<canvas width="+W+"px height="+H+"px id='Graphics'></canvas>")
+	//alert(document.getElementById("Graphics").width);
+	var CTX=document.getElementById("Graphics").getContext("2d");
+	
+	//CTX.fillStyle="rgb(200,200,200)";
+	CTX.strokeRect(0,0,W,H);
+	
+	//The sun is not a planet but this object definition works
+	var Sun= new Planet("Sun",W/2,H/2,30,0,0,"rgb(255,205,0)");
+	var Planets= new Array();
+	Planets[0]= new Planet("Mercury",W/2,H/2-70,10,70,1,"gray");
+	Planets[1]= new Planet("Venus",W/2,H/2-120,12,120,-1,"rgb(255,250,150)");
+	Planets[2]= new Planet("Earth",W/2,H/2-170,12,170,1,"blue");
+	Planets[3]= new Planet("Mars",W/2+220,H/2,11,220,1,"red");
+	Planets[3].Angle=Math.PI/2;
+	Planets[4]= new Planet("Jupiter",W/2,H/2-350,25,350,0.85,"rgb(255,100,0)");
+	Planets[5]= new Planet("Saturn",W/2-410,H/2,23,410,-0.75,"rgb(255,250,100)");
+	Planets[5].Angle=-Math.PI/2;
+	Planets[6]= new Planet("Uranus",W/2,H/2-470,18,470,0.65,"cyan");
+	Planets[7]= new Planet("Neptune",W/2,H/2+520,16,520,0.55,"rgb(0,150,255)");
+	Planets[7].Angle=Math.PI;
+	Planets[8]= new Planet("Pluto",W/2,H/2-600,9,600,-0.45,"rgb(155,0,155)");
+	for(var i=0;i<Planets.length;i++){
+		setInterval("Planets["+i+"].Move()",1);
+	}
+
+	
+	//function ABC(){
+		
+		//return ABC();
+	//}
+	//ABC();
+	//colorChange(0,5,dir);
+/*	
+	function colorChange(counter, speed, dir){
+		Sun.FStyle="rgb(255,"+counter+",0)";
+		if(counter+speed*dir>255 || counter+speed*dir<0){dir=-dir;}
+		return colorChange(counter+speed*dir,speed,dir);
+	
+	}
+*/		
+	
+	function Scale(num,type){
+		var ScaledVal;
+		if(type=="x"){
+			//alert("asd");
+			ScaledVal=(W/2-num)*SCALEFACTOR;
+			ScaledVal=W/2-ScaledVal;
+		}else if(type=="y"){
+			ScaledVal=(H/2-num)*SCALEFACTOR;
+			ScaledVal=H/2-ScaledVal;
+		}else{
+			ScaledVal=SCALEFACTOR*num;
+		}
+			
+		return ScaledVal;
+	}	
+		
+	function Update(){
+		CTX.fillStyle="black";
+		CTX.fillRect(0,0,W,H);
+		CTX.strokeRect(0,0,W,H);
+		
+		
+		Sun.Draw();
+		for(x in Planets){
+			Planets[x].Draw();
+		}
+		
+		
+	}
+	
+	
+	function Planet(name,x,y,r,pr,mspeed,color){
+		this.Name=name;
+		this.X=x;
+		this.Y=y;
+		this.Radius=r;
+		this.MSpeed=mspeed;
+		this.FStyle=color;
+		this.Angle=0;
+		this.PathRadius=pr;
+		this.Draw=function(){			
+			//CTX.lineWidth=10;
+			if(SHOW_ORBIT){
+				CTX.strokeStyle="white";
+				CTX.beginPath(W/2,H/2);
+				                  CTX.arc(W/2,H/2,Scale(this.PathRadius),0,2*Math.PI);
+				CTX.stroke();
+			}
+			var img= document.getElementById(this.Name);
+			CTX.drawImage(img,Scale(this.X-this.Radius,"x"),
+				Scale(this.Y-this.Radius,"y"),
+				2*Scale(this.Radius),2*Scale(this.Radius));
+			
+		}
+		this.Move=function(){
+			this.X+=this.MSpeed*Math.cos(parseFloat(this.Angle));
+			this.Y+=this.MSpeed*Math.sin(parseFloat(this.Angle));
+			this.Angle+=this.MSpeed/this.PathRadius;
+			Update();
+		}
+		 
+	
+	}
+	
+	
+	
+	
+	
+</script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<input type="text" placeholder="Enter a value here" id="num">
+<!--<button onclick="alert(NUM);">check value</button>-->
+<button onclick="ARR.push(NUM);update();">Push Back</button>
+<button onclick="if(ARR.length!=0){ARR.pop();update();}">Pop Back</button>
+<button onclick="ARR.sort();update();">Sort</button>
+<button onclick="ARR.reverse();update();">Reverse</button>
+<button onclick="ARR.unshift(NUM);update();">Push Front</button>
+<button onclick="ARR.shift();update();">Pop Front</button>
+<button onclick="Spl();update();">Splice</button>
+
+<br><br>
+<p id="Out" style="font-family:Agency FB;font-size:28px;"></p>
+<script type="text/javascript">
+	var NUM=0;
+	var ARR=[];
+	var NumBox=document.getElementById("num");
+	var OutBox=document.getElementById("Out");
+	NumBox.onchange=function(){
+		var temp=parseInt(NumBox.value);
+		if(temp*1===temp){
+			NUM=NumBox.value;//=temp
+		}
+	}
+	function update(){
+		OutBox.innerHTML=ARR.join(" -- ");
+	}
+	function Spl(){
+	//	var start=parseInt(prompt("Enter starting position",0));
+		//var NumRemove=parseInt(prompt("Enter number of elements to remove",0));
+		//RR.splice(start,NumRemove,NUM);
+		
+	}
+	
+	
+</script>
+</body>
+
+</html>

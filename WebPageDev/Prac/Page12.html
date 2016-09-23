@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<h1>My first web Page</h1>
+<p id="demo"> My first Para</p>
+<button onclick="myFunc()">Try it</button>
+<button onclick="MsgBox('a Message');">Print a Message</button>
+<script type="text/javascript">
+//To access html element use document.getElementById(id)
+//alert("My First(sort of) Javascript");
+document.getElementById("demo").innerHTML="My First JS Modification";
+document.write("JS Text");
+
+var pi=3.141592654;
+var $Coords= new Array(10,20,100);
+document.write("<br><br>"+pi*($Coords[0]+$Coords[1]+$Coords[2]));
+
+var Person={firstname:"Shobhit",lastname:"Adlakha",age:20};
+document.write("<br><br>Name: "+Person.firstname+" "+Person.lastname);
+document.write("<br>Age: "+Person["age"]);
+
+var NoVal;
+document.write("<br><br>value: "+NoVal);
+
+var F=factorial(5);
+document.write("<br><br>5 factorial is: "+F);
+F=null;
+document.write("<br><br>5 factorial is: "+F);
+
+//Declaring with types
+
+var carname= new String;
+var x= new Number;
+var i= new Boolean;
+var cars=new Array;
+
+i=(5!=='5');
+
+document.write("<br><br>bool is: "+i);
+
+var thing="text";
+switch(thing){
+case 0:
+	document.write("<br><br>its a zero");
+	break;
+case 3:
+	document.write("<br><br>its a three");
+	break;
+case 5:
+	document.write("<br><br>its a five");
+	break;
+case "text":
+	document.write("<br><br>its text");
+	break;
+default:
+	document.write("<br><br>need more cases");
+	break;
+}
+var day= new Date().getDay();
+switch(day){
+case 0:
+	document.write("<br><br>Today its a Sunday");
+	break;
+case 1:
+	document.write("<br><br>Today its a Monday");
+	break;
+case 2:
+	document.write("<br><br>Today its a Tuesday");
+	break;
+case 3:
+	document.write("<br><br>Today its a Wednesday");
+	break;
+case 4:
+	document.write("<br><br>Today its a Thursday");
+	break;
+case 5:
+	document.write("<br><br>Today its a Friday");
+	break;
+case 6:
+	document.write("<br><br>Today its a Saturday");
+	break;
+	
+default:
+	document.write("<br><br>need more cases");
+	break;
+}
+
+
+function MsgBox(Msg){
+	alert(Msg);
+}
+function factorial(num){
+	if(num<=1){
+		return 1;
+	}
+	return num*factorial(num-1);
+}
+function myFunc(){
+	document.write("Fresh start");
+	document.write("<div style='background:orange;width:100px;height:100px;'></div>");
+	
+}
+
+
+
+</script>
+</body>
+
+</html>
