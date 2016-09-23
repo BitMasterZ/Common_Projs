@@ -1,0 +1,15 @@
+import java.awt.image.*;
+	/**
+	 *Update Center Panel Graphics
+	 */
+	public void update(Graphics g){
+		//Double buffering
+		Image dbImage=createImage(getWidth(),getHeight());
+		Graphics dbg=dbImage.getGraphics();
+
+		//What to draw
+
+		//Double buffering
+		g.drawImage(dbImage,0,0,this);
+
+	}
