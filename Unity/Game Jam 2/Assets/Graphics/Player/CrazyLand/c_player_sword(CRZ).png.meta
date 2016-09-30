@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: ac1def8bb2354fa469c286a736b8ebde
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: c_player_sword(CRZ)_0
+    21300002: c_player_sword(CRZ)_1
+    21300004: c_player_sword(CRZ)_2
+    21300006: c_player_sword(CRZ)_3
+    21300008: c_player_sword(CRZ)_4
+    21300010: c_player_sword(CRZ)_5
+    21300012: c_player_sword(CRZ)_6
+    21300014: c_player_sword(CRZ)_7
+    21300016: c_player_sword(CRZ)_8
+    21300018: c_player_sword(CRZ)_9
+    21300020: c_player_sword(CRZ)_10
+    21300022: c_player_sword(CRZ)_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: c_player_sword(CRZ)_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 96
+        width: 15
+        height: 27
+      alignment: 9
+      pivot: {x: .528051913, y: .609090149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 96
+        width: 15
+        height: 27
+      alignment: 9
+      pivot: {x: .528051734, y: .609090149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 96
+        width: 16
+        height: 27
+      alignment: 9
+      pivot: {x: .552597046, y: .609090149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_3
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 64
+        width: 24
+        height: 27
+      alignment: 9
+      pivot: {x: .350975305, y: .648050964}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_4
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 64
+        width: 22
+        height: 27
+      alignment: 9
+      pivot: {x: .37567988, y: .640258789}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_5
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 64
+        width: 15
+        height: 27
+      alignment: 9
+      pivot: {x: .556103528, y: .648050964}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_6
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 32
+        width: 15
+        height: 27
+      alignment: 9
+      pivot: {x: .429871231, y: .640258789}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_7
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 32
+        width: 22
+        height: 27
+      alignment: 9
+      pivot: {x: .614757359, y: .648050964}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_8
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 32
+        width: 24
+        height: 27
+      alignment: 9
+      pivot: {x: .640258789, y: .648050964}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_9
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 0
+        width: 18
+        height: 27
+      alignment: 9
+      pivot: {x: .605193913, y: .297404289}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_10
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 0
+        width: 15
+        height: 27
+      alignment: 9
+      pivot: {x: .528051734, y: .305196404}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: c_player_sword(CRZ)_11
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 15
+        height: 27
+      alignment: 9
+      pivot: {x: .443896979, y: .312988549}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

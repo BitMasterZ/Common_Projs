@@ -1,0 +1,13 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\..\..\Documents\Practice\Assets\Collision_Script.cs">
+    <Files>
+      <File FileName="..\..\..\..\..\Documents\Practice\Assets\Collision_Script.cs" Line="25" Column="32" />
+      <File FileName="..\..\..\..\..\Documents\Practice\Assets\Control.cs" Line="34" Column="16" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
