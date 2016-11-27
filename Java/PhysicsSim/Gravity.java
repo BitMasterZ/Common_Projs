@@ -2,6 +2,9 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+
+/*<applet code="Gravity"  width="300" height="300">*/
+
 @SuppressWarnings("serial")
 public class Gravity extends JApplet implements ActionListener,MouseListener{
 	Formulas set= new Formulas();
