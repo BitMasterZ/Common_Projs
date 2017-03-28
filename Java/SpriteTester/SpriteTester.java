@@ -116,9 +116,6 @@ public class SpriteTester extends JFrame implements ActionListener {
 		jbANIM_DELAY.addActionListener(this);
 		Display();
 	
-		if(isJar()){
-			JOptionPane.showMessageDialog(null, "This is a jar");
-		}
 		tmrANIM.start();
 	}
 
@@ -272,7 +269,7 @@ public class SpriteTester extends JFrame implements ActionListener {
 		dbg.fill3DRect(0, 0, pnlLEFT_TOP.getWidth(), pnlLEFT_TOP.getHeight(), false);
 		dbg.setColor(Color.black);
 		try{
-			Image imgTHING = ImageIO.read(Paths.get(DIRECT + "\\" + FILEN).toFile());
+			Image imgTHING = ImageIO.read(Paths.get(DIRECT, FILEN).toFile());
 			dbg.drawImage(imgTHING, 0, 0, pnlLEFT_TOP.getWidth(), pnlLEFT_TOP.getHeight(), null);
 		}catch(Exception e){dbg.drawString("No Image to Display", pnlLEFT_TOP.getWidth() / 2 - 55, pnlLEFT_TOP.getHeight() / 2);}
 		
@@ -289,7 +286,7 @@ public class SpriteTester extends JFrame implements ActionListener {
 		
 		//Draw character
 		try{
-			Image imgTHING = ImageIO.read(Paths.get(DIRECT + "\\" + FILEN).toFile());
+			Image imgTHING = ImageIO.read(Paths.get(DIRECT, FILEN).toFile());
 			int X = 10,Y = 10;
 			dbg.drawImage(imgTHING, (int)(X), (int)(Y), (int)(X + Width * GX), (int)(Y + Height * GY),
 				(int)(Width * FX), (int)(Height * FY), (int)(Width * FX + Width), (int)(Height * FY + Height), null);
@@ -318,9 +315,5 @@ public class SpriteTester extends JFrame implements ActionListener {
 		}
 	}
 
-	public boolean isJar(){
-		File jar = Paths.get(System.getProperty("user.dir") + "\\" + this.getName() + ".jar").toFile();
-		if(jar.exists()) return true;
-		return false;
-	}
+	
 }
