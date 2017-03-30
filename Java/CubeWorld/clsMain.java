@@ -59,7 +59,7 @@ public class clsMain extends JFrame implements ActionListener{
 		setVisible(true);
 
 		//Start game
-
+		CubeWorld instGame =  new CubeWorld(pnlCENTER);
 	}
 
 
@@ -71,19 +71,5 @@ public class clsMain extends JFrame implements ActionListener{
 		clsMain ABC = new clsMain(500,500);
 	}
 
-/*
-	import java.awt.image.*;
-		public void update(Graphics g){
-			//Double buffering
-			Image dbImage=createImage(getWidth(),getHeight());
-			Graphics dbg=dbImage.getGraphics();
-
-			//What to draw
-
-			//Double buffering
-			g.drawImage(dbImage,0,0,this);
-
-		}
-*/
 
 }
