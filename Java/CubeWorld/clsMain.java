@@ -22,7 +22,7 @@ public class clsMain extends JFrame implements ActionListener{
 	*/
 	public clsMain(int W ,int H){
 		//Initial Setup
-		super("Chess");
+		super("CubeWorld");
 		setBounds(this.getToolkit().getScreenSize().width / 2 - W / 2,
 			this.getToolkit().getScreenSize().height / 2 - H / 2, W, H);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +52,7 @@ public class clsMain extends JFrame implements ActionListener{
 
 			//CENTER
 		this.add(pnlCENTER,BorderLayout.CENTER);
-
+		pnlCENTER.setFocusable(true);
 			//MENU BAR
 		this.setJMenuBar(MAIN_MENU);
 
@@ -60,6 +60,7 @@ public class clsMain extends JFrame implements ActionListener{
 
 		//Start game
 		CubeWorld instGame =  new CubeWorld(pnlCENTER);
+
 	}
 
 

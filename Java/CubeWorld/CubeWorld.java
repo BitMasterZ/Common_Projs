@@ -7,7 +7,7 @@ public class CubeWorld{
   JPanel DISPLAY_WINDOW;
 
   Thread thdANIM;
-
+  Player PLAYER;
   public void initThreads(){
     thdANIM = new Thread(new Runnable(){
       public void run(){
@@ -22,6 +22,7 @@ public class CubeWorld{
 
   public CubeWorld(JPanel window){
     DISPLAY_WINDOW = window;
+    PLAYER = new Player(50, 50, Color.GREEN, DISPLAY_WINDOW);
     initThreads();
     thdANIM.start();
   }
@@ -35,7 +36,7 @@ public class CubeWorld{
 		Graphics dbg=dbImage.getGraphics();
 
 		//What to draw
-    dbg.drawRect(10,10,100,100);
+    PLAYER.draw(dbg);
 
 		//Double buffering
 		DISPLAY_WINDOW.getGraphics().drawImage(dbImage,0,0,DISPLAY_WINDOW);
