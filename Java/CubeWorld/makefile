@@ -7,7 +7,7 @@ JAR = Chess.jar
 EXE = clsMain
 
 #names of java files to be compiled
-OBJECTS = clsMain.java
+OBJECTS = clsMain.java GameCharacter.java CubeWorld.java Player.java
 
 compile:
 	javac $(OBJECTS)
