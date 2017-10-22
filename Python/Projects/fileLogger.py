@@ -30,6 +30,8 @@ def getFileList(ext):
 # Key = file path
 # Content = file hash value
 def loadLogFile(ext):
+    if(not os.path.isfile(ext + 'files.log')):
+        return None;
     data = {}
     log_file = open(ext + 'files.log', 'r')
     
@@ -80,7 +82,7 @@ def logCompare(log_data, file_list):
                 newFile_list.append(file)
 
     for key in log_data.keys():
-        if key not in file_list and key not in rnmFile_list:
+        if key not in file_list:
             # Deleted file
             delFile_list.append(key)
     
@@ -90,22 +92,26 @@ def logCompare(log_data, file_list):
 
 if __name__ == '__main__':
     print('Welcome to File Logger. Enter your command')
-    command = ''
-    ext = 'mp3'
+    print()
+
+    ext = str(sys.argv[1])
     while True:
         command = input('>>')
-        
-        if command.lower() == 'log': # Write file and hash list to log file
+        command = command.split(" ")
+
+        if command[0].lower() == 'log': # Write file and hash list to log file
             file_list = getFileList('.' + ext)
             log_file = open(ext + 'files.log', 'w')
             for file in file_list:
                 log_file.write(file + '\t' + str(hash(file)) + '\n')
             log_file.close()
-
             print('Log updated.')
         
-        elif command.lower() == 'load': # Scan the directory
+        elif command[0].lower() == 'load': # Scan the directory
             log_data = loadLogFile(ext)
+            if(log_data == None):
+                print('Log file does not exist.')
+                continue;
             # print(log_data)
             file_list = getFileList('.' + ext)
             # print(file_list)
@@ -115,7 +121,7 @@ if __name__ == '__main__':
             print('Load complete.')
             
 
-        elif command.lower() == 'compare':
+        elif command[0].lower() == 'compare':
             # Get file and hash list from log
             log_data = loadLogFile(ext)
             # Get file list from directory
@@ -123,7 +129,27 @@ if __name__ == '__main__':
 
             logCompare(log_data, file_list)
 
-        elif command.lower() == 'help':
+        elif command[0].lower() == "read":
+            log_file = open(ext + 'files.log', 'r')
+            for line in log_file:
+                print(line)
+
+        elif command[0].lower() == "ext":
+            if(len(command) >= 2 and command[1] != ''):
+                ext = str(command[1])
+                print("File extension changed to ." + ext)
+            else:
+                print("New extension not specified")
+
+        elif command[0].lower() == "del":
+            if os.path.isfile(ext + 'files.log'):
+                os.remove(ext + 'files.log')
+                print("Delted log file.")
+            else:
+                print("Log file does not exist.")
+
+        elif command[0].lower() == 'help' or command[0].lower() == 'h':
+            print('Currently logging extension .' + ext)
             print('List of commands...')
             
             print('load:')
@@ -134,11 +160,19 @@ if __name__ == '__main__':
             
             print('log:')
             print('\tCommit the changes to the log file')
-            
+
+            print('read:')
+            print('\tPrint contents of log file')
+
+            print('ext <new_ext>:')
+            print('\tChange the file extension to log and compare')
+
+            print('del:')
+            print('\tDelete the exist log file')
+   
             print('quit:')
             print('\tExit the program')
-            
-        elif command.lower() == 'quit':
+        elif command[0].lower() == 'quit' or command[0].lower() == 'q':
             print('Thanks for using fileLogger')
             sys.exit(0)
             
